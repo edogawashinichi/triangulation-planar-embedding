@@ -1,10 +1,10 @@
 # Introduction
-This project is aimed to draw a triangulation on a plane.
+This project is aimed to draw a triangulation on a plane.\
 The current tools, such as networkx, perform not well,
 so this is why this project emerges.
 # Input
 A triangulation, that is a planar graph with $m=3n-6$,
-where $m$($n$) is the number of edges(vertices) of the graph respectively.
+where $m$($n$) is the number of edges(vertices) of the graph respectively.\
 Currently users guarantee the input is a triangulation,
 which will be verified by the project in the future.
 # Output
@@ -15,7 +15,7 @@ A json file "position.json" in the following format:
 }
 ```
 The keys are vertices of the graph,
-while the values are their coordinates on the plane.
+while the values are their coordinates on the plane.\
 This file can be visualized by using networkx in Python:
 ```python
 infile = open('position.json', 'r')
