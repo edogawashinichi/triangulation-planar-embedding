@@ -1,0 +1,6 @@
+{
+  /* minimum distance among all vertex pairs */
+  "min_dist": 0.5,
+  /* minimum area among all triangles */
+  "min_area": 0.1
+}

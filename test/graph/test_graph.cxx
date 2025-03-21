@@ -1,8 +1,8 @@
 /* test_graph.cxx */
 
-#include "../src/graph.h"
+#include "../../src/graph.h"
 
-#include "../src/common/terminal.h"
+#include "../../src/common/terminal.h"
 using namespace TriangulationPlanarEmbedding;
 
 TEST_START(0)

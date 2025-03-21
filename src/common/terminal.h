@@ -39,6 +39,10 @@ namespace TriangulationPlanarEmbedding {
 
 #define SPACE(k) S(k, ' ')
 
+#define HINT S(": ")
+
+#define TO S("->")
+
 #define ENDL S("\n")
 
 #define SEPAR(k) S(k, '-')
@@ -56,6 +60,26 @@ S_BLUE(SS(test_##i)) + " " + S_GREEN("PASSED!")
 
 #define S_TEST_FAIL(i) \
 S_BLUE(SS(test_##i)) + " " + S_RED("FAILED!")
+
+#define SHOW_VAR_ENDL(cout, var) \
+cout << SS(var) << "=" << var << ENDL;
+
+#define SHOW_MIVI_ENDL(cout, mivi)  \
+cout << SS(mivi) << HINT << ENDL;   \
+for (const auto& kv : mivi) {       \
+  cout << kv.first << HINT;         \
+  for (const auto& i : kv.second) { \
+    cout << i << SPACE(1);          \
+  }                                 \
+  cout << ENDL;                     \
+}
+
+#define SHOW_MSI_OR_MIS_ENDL(cout, msome)          \
+cout << SS(msome) << HINT << ENDL;                 \
+for (const auto& kv : msome) {                     \
+  cout << kv.first << TO << kv.second << SPACE(1); \
+}                                                  \
+cout << ENDL;
 
 #define SHOW_ENDL(cout, s) \
 cout << s << ENDL;

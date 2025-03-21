@@ -3,6 +3,7 @@
 #pragma once
 
 #include <vector>
+#include <unordered_map>
 #include <string>
 
 namespace TriangulationPlanarEmbedding {
@@ -11,8 +12,14 @@ namespace TriangulationPlanarEmbedding {
 
 #define I size_t
 #define VI std::vector<I>
-#define VVI std::vector<VI> 
+#define VVI std::vector<VI>
+#define UM std::unordered_map
+#define MIVI UM<I, VI>
 #define S std::string
+#define MIS UM<I, S>
+#define MSI UM<S, I>
+#define F float
+#define FF double
 
 /* singleton pattern */
 

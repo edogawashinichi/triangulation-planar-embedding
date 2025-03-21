@@ -1,7 +1,7 @@
-aux_source_directory(. TEST_LIST)
+cmake_minimum_required(VERSION 2.8)
 
-include_directories(../src)
+project(test)
 
-add_executable(test_graph ${TEST_LIST})
+add_subdirectory(graph)
+add_subdirectory(reader)
 
-set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
