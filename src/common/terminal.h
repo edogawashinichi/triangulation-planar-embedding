@@ -64,6 +64,9 @@ S_BLUE(SS(test_##i)) + " " + S_RED("FAILED!")
 #define SHOW_VAR_ENDL(cout, var) \
 cout << SS(var) << "=" << var << ENDL;
 
+#define SHOW_PAIR_WITH_PARENTH(cout, p) \
+cout << "(" << p.first << "," << p.second << ")";
+
 #define SHOW_MIVI_ENDL(cout, mivi)  \
 cout << SS(mivi) << HINT << ENDL;   \
 for (const auto& kv : mivi) {       \
@@ -80,6 +83,14 @@ for (const auto& kv : msome) {                     \
   cout << kv.first << TO << kv.second << SPACE(1); \
 }                                                  \
 cout << ENDL;
+
+#define SHOW_MIPFF_ENDL(cout, mipff)      \
+cout << SS(mipff) << HINT << ENDL;        \
+for (const auto& kv : mipff) {            \
+  cout << kv.first << TO;                 \
+  SHOW_PAIR_WITH_PARENTH(cout, kv.second) \
+  cout << ENDL;                           \
+}
 
 #define SHOW_ENDL(cout, s) \
 cout << s << ENDL;

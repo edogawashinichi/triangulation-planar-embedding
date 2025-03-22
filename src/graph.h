@@ -10,6 +10,7 @@
 
 #include "common/notation.h"
 #include "common/terminal.h"
+#include "common/math.h"
 
 namespace TriangulationPlanarEmbedding {
 
@@ -31,12 +32,20 @@ public:
       neighbors_[u] = {v};
     }/* if else */
   }/* add */
+  inline bool symmetry(const I u, const I v) const {
+    if (!neighbors_.count(v)) return false;
+    return find_element_in_vector<I>(u, neighbors_.at(v));
+  }/* symmetry */
   inline bool checkSymmetry() {
     bool change = false;
     MIVI copy(neighbors_);
     for (const auto& kv : neighbors_) {
-      /* TODO */
-    }/* for */
+      const I u = kv.first;
+      for (const I v : kv.second) {
+        if (this->symmetry(u, v)) continue;
+        copy[v].emplace_back(u);
+      }/* for v */
+    }/* for kv */
     return true;
   }/* checkSymmetry */
   inline void setN(const I n) {

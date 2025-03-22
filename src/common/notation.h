@@ -14,12 +14,16 @@ namespace TriangulationPlanarEmbedding {
 #define VI std::vector<I>
 #define VVI std::vector<VI>
 #define UM std::unordered_map
-#define MIVI UM<I, VI>
+#define MIVI UM<I,VI>
 #define S std::string
-#define MIS UM<I, S>
-#define MSI UM<S, I>
+#define MIS UM<I,S>
+#define MSI UM<S,I>
 #define F float
-#define FF double
+#define D double
+#define LL long long
+#define P std::pair
+#define PFF P<F,F>
+#define MIPFF UM<I,PFF>
 
 /* singleton pattern */
 

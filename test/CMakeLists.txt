@@ -4,4 +4,5 @@ project(test)
 
 add_subdirectory(graph)
 add_subdirectory(reader)
+add_subdirectory(writer)
 

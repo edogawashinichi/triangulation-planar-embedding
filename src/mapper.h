@@ -1,5 +1,9 @@
 /* mapper.h */
 
+/* mapper of vertex: string <--> index */
+/* string originates from the input json file, and will be shown in the png file */
+/* index will be used in our logic graph */
+
 #pragma once
 
 #include "common/notation.h"
@@ -21,6 +25,9 @@ public:
   inline I getCode(const S& string) const {
     return string2code_.count(string) ? string2code_.at(string) : 0;
   }/* getCode */
+  inline S getString(const I code) const {
+    return code2string_.count(code) ? code2string_.at(code) : S();
+  }/* getString */
   inline void add(const S& string, const I code) {
     string2code_[string] = code;
     code2string_[code] = string;

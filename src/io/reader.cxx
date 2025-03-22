@@ -56,7 +56,8 @@ bool Reader::readGraph(const S& file, Mapper* mapper, Graph* graph) {
   }/* for iter */
 
   /* create graph */
-  for (auto iter = mem.begin(); iter != mem.end(); ++iter) {
+  size_t n = 0;
+  for (auto iter = mem.begin(); iter != mem.end(); ++iter, ++n) {
     const I u = mapper->getCode(*iter);
     const I size = root[*iter].size();
     for (I i = 0; i < size; ++i) {
@@ -65,6 +66,8 @@ bool Reader::readGraph(const S& file, Mapper* mapper, Graph* graph) {
       graph->add(u, v);
     }/* for i */
   }/* for iter */
+  graph->setN(n);
+  graph->checkSymmetry();
 
   READ_JSON_END
 }/* Reader::readGraph */
