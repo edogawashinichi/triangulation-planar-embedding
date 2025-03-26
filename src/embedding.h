@@ -5,6 +5,7 @@
 #include "common/notation.h"
 #include "geometry/cartesian.h"
 #include "common/terminal.h"
+#include "common/debug.h"
 
 namespace TriangulationPlanarEmbedding {
 
@@ -38,6 +39,7 @@ public:
     return res;
   }/* getData */
   inline void show(std::ostream& cout) const {
+    TEST_RETURN
     SHOW_MIPFF_ENDL(cout, this->getData())
   }/* show */
 };/* class Embedding */

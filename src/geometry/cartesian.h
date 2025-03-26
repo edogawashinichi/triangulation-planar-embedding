@@ -5,6 +5,7 @@
 #pragma once
 
 #include "../common/notation.h"
+#include "../common/debug.h"
 
 #include <cmath>
 
@@ -16,6 +17,11 @@ public:
   float x_;
   float y_;
 public:
+  inline void show(std::ostream& cout) const {
+    TEST_RETURN
+    const PFF& pair = {x_, y_};
+    SHOW_PAIR_WITH_PARENTH_ENDL(cout, pair)
+  }/* show */
   inline PlanarVector(const F x, const F y): x_(x), y_(y) {
   }/* constructor */
   inline float length() const {
@@ -29,6 +35,11 @@ public:
   float x_;
   float y_;
 public:
+  inline void show(std::ostream& cout) const {
+    TEST_RETURN
+    const PFF& pair = {x_, y_};
+    SHOW_PAIR_WITH_PARENTH_ENDL(cout, pair)
+  }/* show */
   inline Point(const F x, const F y): x_(x), y_(y) {
   }/* constructor */
   inline friend PlanarVector operator-(const Point& A, const Point& B) {

@@ -5,4 +5,5 @@ project(test)
 add_subdirectory(graph)
 add_subdirectory(reader)
 add_subdirectory(writer)
+add_subdirectory(complete_graph)
 

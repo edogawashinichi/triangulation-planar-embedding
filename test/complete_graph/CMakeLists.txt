@@ -9,8 +9,8 @@ message("MORE_LIST=${MORE_LIST}")
 include_directories(../../src)
 
 # main function .cxx file and other .cxx files
-add_executable(test_graph ${TEST_LIST} ${MORE_LIST})
-#add_executable(test_graph ${TEST_LIST})
+add_executable(test_complete_graph ${TEST_LIST} ${MORE_LIST})
+#add_executable(test_complete_graph ${TEST_LIST})
 
 set(PROJECT_SOURCE_DIR /mnt/triangulation-planar-embedding)
 message("PROJECT_SOURCE_DIR=${PROJECT_SOURCE_DIR}")

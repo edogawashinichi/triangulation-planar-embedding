@@ -4,6 +4,7 @@
 
 #include "common/notation.h"
 #include "common/terminal.h"
+#include "common/debug.h"
 
 namespace TriangulationPlanarEmbedding {
 
@@ -11,6 +12,7 @@ class Config {
 CLASS_5_FUNCTIONS(Config, min_dist_, min_area_)
 public:
   inline void show(std::ostream& cout) const {
+    TEST_RETURN
     SHOW_VAR_ENDL(cout, min_dist_)
     SHOW_VAR_ENDL(cout, min_area_)
   }/* show */

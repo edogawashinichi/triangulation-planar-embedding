@@ -67,6 +67,10 @@ cout << SS(var) << "=" << var << ENDL;
 #define SHOW_PAIR_WITH_PARENTH(cout, p) \
 cout << "(" << p.first << "," << p.second << ")";
 
+#define SHOW_PAIR_WITH_PARENTH_ENDL(cout, p) \
+SHOW_PAIR_WITH_PARENTH(cout, p)              \
+cout << ENDL;
+
 #define SHOW_MIVI_ENDL(cout, mivi)  \
 cout << SS(mivi) << HINT << ENDL;   \
 for (const auto& kv : mivi) {       \
@@ -88,8 +92,7 @@ cout << ENDL;
 cout << SS(mipff) << HINT << ENDL;        \
 for (const auto& kv : mipff) {            \
   cout << kv.first << TO;                 \
-  SHOW_PAIR_WITH_PARENTH(cout, kv.second) \
-  cout << ENDL;                           \
+  SHOW_PAIR_WITH_PARENTH_ENDL(cout, kv.second) \
 }
 
 #define SHOW_ENDL(cout, s) \
@@ -115,14 +118,6 @@ void test_##i() {                             \
 #define TEST_END(i)                           \
   SHOW_TEST_RES(std::cout, i)                 \
   SHOW_SEPAR_ENDL_WITH_TEST(std::cout, 30, i) \
-}
-
-#define MAIN_START \
-int main(int argc, char* argv[]) {
-
-#define MAIN_END                               \
-  std::cout << S_GREEN("return from main!\n"); \
-  return 0;                                    \
 }
 
 }/* namespace TriangulationPlanarEmbedding */

@@ -4,6 +4,7 @@ echo "start makemake ..."
 
 ROOT_DIR=/mnt/triangulation-planar-embedding
 BUILD_DIR=${ROOT_DIR}/build
+SCRIPT_DIR=${ROOT_DIR}/script
 
 # create a new build dir
 cd ${ROOT_DIR}
@@ -20,6 +21,11 @@ mkdir ${BUILD_DIR}
 cd ${BUILD_DIR}
 cmake ..
 make
+cd ..
+
+# test
+cd ${SCRIPT_DIR}
+bash test.sh
 cd ..
 
 echo "end makemake ..."

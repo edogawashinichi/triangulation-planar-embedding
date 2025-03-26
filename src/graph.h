@@ -10,6 +10,7 @@
 
 #include "common/notation.h"
 #include "common/terminal.h"
+#include "common/debug.h"
 #include "common/math.h"
 
 namespace TriangulationPlanarEmbedding {
@@ -17,7 +18,8 @@ namespace TriangulationPlanarEmbedding {
 class Graph {
 CLASS_5_FUNCTIONS(Graph, n_, neighbors_)
 public:
-  inline void show(std::ostream& cout) const {
+  inline virtual void show(std::ostream& cout) const {
+    TEST_RETURN
     SHOW_VAR_ENDL(cout, n_)
     SHOW_MIVI_ENDL(cout, neighbors_)
   }/* show */
@@ -26,27 +28,31 @@ public:
     n_ = 0;
   }/* clear */
   inline void add(const I u, const I v) {
-    if (neighbors_.count(u)) {
-      neighbors_[u].emplace_back(v);
-    } else {
-      neighbors_[u] = {v};
-    }/* if else */
+    /* add edge (u,v) */
+    /* may not guarantee symmetry */
+    MAP_ADD(neighbors_, u, v)
   }/* add */
   inline bool symmetry(const I u, const I v) const {
+    /* assuming the graph contains (u,v) */
+    /* to determing whether it contains (v,u) */
     if (!neighbors_.count(v)) return false;
     return find_element_in_vector<I>(u, neighbors_.at(v));
   }/* symmetry */
   inline bool checkSymmetry() {
+    /* to check whether the graph is symmetry */
+    /* make the graph symmetry if not */
     bool change = false;
     MIVI copy(neighbors_);
     for (const auto& kv : neighbors_) {
       const I u = kv.first;
       for (const I v : kv.second) {
         if (this->symmetry(u, v)) continue;
-        copy[v].emplace_back(u);
+        MAP_ADD(copy, v, u)
+        change = true;
       }/* for v */
     }/* for kv */
-    return true;
+    std::swap(copy, neighbors_);
+    return change;
   }/* checkSymmetry */
   inline void setN(const I n) {
     n_ = n;

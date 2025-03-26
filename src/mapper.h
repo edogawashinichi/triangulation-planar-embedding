@@ -8,6 +8,7 @@
 
 #include "common/notation.h"
 #include "common/terminal.h"
+#include "common/debug.h"
 
 namespace TriangulationPlanarEmbedding {
 
@@ -15,6 +16,7 @@ class Mapper {
 CLASS_5_FUNCTIONS(Mapper, string2code_, code2string_)
 public:
   inline void show(std::ostream& cout) const {
+    TEST_RETURN
     SHOW_MSI_OR_MIS_ENDL(cout, string2code_)
     SHOW_MSI_OR_MIS_ENDL(cout, code2string_)
   }/* show */

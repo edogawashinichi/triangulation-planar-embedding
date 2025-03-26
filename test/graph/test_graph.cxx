@@ -2,11 +2,11 @@
 
 #include "../../src/graph.h"
 
-#include "../../src/common/terminal.h"
 using namespace TriangulationPlanarEmbedding;
 
 TEST_START(0)
   Graph graph;
+  VERBOSE_OBJ(graph)
 TEST_END(0)
 
 MAIN_START

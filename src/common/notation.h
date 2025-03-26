@@ -25,6 +25,15 @@ namespace TriangulationPlanarEmbedding {
 #define PFF P<F,F>
 #define MIPFF UM<I,PFF>
 
+/* fundamental operation */
+
+#define MAP_ADD(map, x, y) \
+if (map.count(x)) {        \
+  map[x].emplace_back(y);     \
+} else {                   \
+  map[x] = {y};            \
+}
+
 /* singleton pattern */
 
 #define SINGLETON_ASSERTION(Class)                \
