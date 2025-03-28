@@ -4,18 +4,23 @@ echo "start makemake ..."
 
 ROOT_DIR=/mnt/triangulation-planar-embedding
 BUILD_DIR=${ROOT_DIR}/build
+TEST_DIR=${ROOT_DIR}/bin
 SCRIPT_DIR=${ROOT_DIR}/script
 
-# create a new build dir
+function emptyFolder() {
+  folder=$1
+  if [ -d ${folder} ]; then
+    rm -rf ${folder}
+    echo "remove existed folder ${folder}"
+  fi
+  mkdir ${folder}
+  echo "create folder ${folder}"
+}
+
+# empty last built result
 cd ${ROOT_DIR}
-if [ -d ${BUILD_DIR} ]; then
-  echo "remove build dir: ${BUILD_DIR}!"
-  rm -rf ${BUILD_DIR}
-else
-  echo "no build dir: ${BUILD_DIR}!"
-fi
-echo "create build dir: ${BUILD_DIR}!"
-mkdir ${BUILD_DIR}
+emptyFolder ${BUILD_DIR}
+emptyFolder ${TEST_DIR}
 
 # make
 cd ${BUILD_DIR}

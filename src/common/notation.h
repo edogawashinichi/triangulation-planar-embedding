@@ -132,12 +132,15 @@ inline Class& operator=(Class&& rhs) {             \
   return *this;                                    \
 } /* assignment movecopy */
 
-#define CLASS_5_FUNCTIONS(Class, ...)               \
-public:                                             \
-CLASS_CONSTRUCTOR_DEFAULT(Class, rhs, __VA_ARGS__)  \
+#define CLASS_4_FUNCTIONS(Class, ...)               \
 CLASS_CONSTRUCTOR_DEEPCOPY(Class, rhs, __VA_ARGS__) \
 CLASS_CONSTRUCTOR_MOVECOPY(Class, rhs, __VA_ARGS__) \
 CLASS_ASSIGNMENT_DEEPCOPY(Class, rhs, __VA_ARGS__)  \
 CLASS_ASSIGNMENT_MOVECOPY(Class, rhs, __VA_ARGS__)
+
+#define CLASS_5_FUNCTIONS(Class, ...)               \
+public:                                             \
+CLASS_CONSTRUCTOR_DEFAULT(Class, rhs, __VA_ARGS__)  \
+CLASS_4_FUNCTIONS(Class, __VA_ARGS__)
 
 }/* namespace TriangulationPlanarEmbedding */

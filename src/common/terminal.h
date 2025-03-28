@@ -61,8 +61,39 @@ S_BLUE(SS(test_##i)) + " " + S_GREEN("PASSED!")
 #define S_TEST_FAIL(i) \
 S_BLUE(SS(test_##i)) + " " + S_RED("FAILED!")
 
-#define SHOW_VAR_ENDL(cout, var) \
-cout << SS(var) << "=" << var << ENDL;
+/* show variables 
+   max supporting number is 5
+*/
+
+#define SHOW_VAR_1(cout, var) \
+cout << SS(var) << "=" << var;
+#define SHOW_VAR_2(cout, var, ...) \
+SHOW_VAR_1(cout, var)              \
+cout << SPACE(2);                  \
+SHOW_VAR_1(cout, __VA_ARGS__)
+#define SHOW_VAR_3(cout, var, ...) \
+SHOW_VAR_1(cout, var)              \
+cout << SPACE(2);                  \
+SHOW_VAR_2(cout, __VA_ARGS__)
+#define SHOW_VAR_4(cout, var, ...) \
+SHOW_VAR_1(cout, var)              \
+cout << SPACE(2);                  \
+SHOW_VAR_3(cout, __VA_ARGS__)
+#define SHOW_VAR_5(cout, var, ...) \
+SHOW_VAR_1(cout, var)              \
+cout << SPACE(2);                  \
+SHOW_VAR_4(cout, __VA_ARGS__)
+
+#define SHOW_VAR(cout, ...)                                           \
+do {                                                                  \
+  CONCAT(SHOW_VAR_, PARAMETER_NUMBER(__VA_ARGS__))(cout, __VA_ARGS__) \
+} while (0);
+
+#define SHOW_VAR_ENDL(cout, ...) \
+SHOW_VAR(cout, __VA_ARGS__)      \
+cout << ENDL;
+
+/* show complicated structure */
 
 #define SHOW_PAIR_WITH_PARENTH(cout, p) \
 cout << "(" << p.first << "," << p.second << ")";

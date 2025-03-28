@@ -22,10 +22,8 @@ public:
   inline virtual void show(std::ostream& cout) const override {
     TEST_RETURN
     const S info("this is a complete graph of size " + std::to_string(Graph::n_));
-    SHOW_ENDL(std::cout, info)
+    SHOW_ENDL(cout, info)
   }/* show */
 };/* class CompleteGraph */
-
-using CompleteThree = CompleteGraph<3>;
 
 }/* namespace TriangulationPlanarEmbedding */
