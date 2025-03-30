@@ -8,11 +8,13 @@ using namespace TriangulationPlanarEmbedding;
 TEST_START(0)
   CompleteGraph<4> K4;
   INFO_OBJ(K4)
+  res = res && (4 == K4.n());
 TEST_END(0)
 
 TEST_START(1)
   CompleteThree K3;
   DEBUG_OBJ(K3)
+  res = res && (3 == K3.n());
 TEST_END(1)
 
 TEST_START(2)

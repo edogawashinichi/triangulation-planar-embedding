@@ -14,13 +14,16 @@ public:
   I u_, v_, w_;
 public:
   inline CompleteThreeResult() {
-    this->set(0, 0, 0);
+    this->clear();
   }/* constructor default */
   inline CompleteThreeResult(const I u, const I v, const I w): u_(u), v_(v), w_(w) {
   }/* constructor */
   inline void set(const I u, const I v, const I w) {
     u_ = u; v_ = v; w_ = w;
   }/* set */
+  inline void clear() {
+    this->set(0, 0, 0);
+  }/* clear */
   inline void show(std::ostream& cout) const {
     TEST_RETURN
     SHOW_VAR_ENDL(cout, u_, v_, w_)

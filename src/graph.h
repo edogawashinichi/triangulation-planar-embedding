@@ -32,11 +32,18 @@ public:
     /* may not guarantee symmetry */
     MAP_ADD(neighbors_, u, v)
   }/* add */
+  inline void addSymmetry(const I u, const I v) {
+    this->add(u, v);
+    this->add(v, u);
+  }/* addSymmetry */
+  inline bool containEdge(const I u, const I v) const {
+    if (!neighbors_.count(u)) return false;
+    return find_element_in_vector<I>(v, neighbors_.at(u));
+  }/* containEdge */
   inline bool symmetry(const I u, const I v) const {
     /* assuming the graph contains (u,v) */
     /* to determing whether it contains (v,u) */
-    if (!neighbors_.count(v)) return false;
-    return find_element_in_vector<I>(u, neighbors_.at(v));
+    return this->containEdge(v, u);
   }/* symmetry */
   inline bool checkSymmetry() {
     /* to check whether the graph is symmetry */
@@ -57,6 +64,21 @@ public:
   inline void setN(const I n) {
     n_ = n;
   }/* setN */
+  inline I n() const {
+    return n_;
+  }/* n */
+  inline I m() const {
+    /* number of edges */
+    I res = 0;
+    for (const auto& kv : neighbors_) {
+      res += kv.second.size();
+    }
+    return res / 2;
+  }/* m */
+  inline VI neighbors(const I v) const {
+    /* assuming valid v */
+    return neighbors_.at(v);
+  }/* neighbors */
 protected:
   I n_;/* number of vertices */
   MIVI neighbors_;
