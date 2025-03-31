@@ -1,5 +1,7 @@
 /* math.h */
 
+#pragma once
+
 #include "notation.h"
 #include <functional>
 #include <algorithm>
@@ -40,6 +42,14 @@ bool equal(const std::vector<std::vector<T>>& lhs, const std::vector<std::vector
     if (lhs[i] != rhs[i]) return false;
   }/* for */
 }/* equal */
+
+/* add element to vector if no duplicate */
+template<typename T>
+bool no_duplicate_add(const T& element, std::vector<T>* vector) {
+  if (find_element_in_vector<T>(element, *vector)) return false;
+  vector->emplace_back(element);
+  return true;
+}/* no_duplicate_add */
 
 /* the number of choosing n items from k items */
 LL combination(const size_t n, const size_t k);
@@ -100,14 +110,39 @@ void diff(const std::vector<T>& A, const std::vector<T>& B, std::vector<T>* C) {
   }/* for A */
 }/* diff */
 
+template<typename T>
+void diff(const std::vector<T>& A, const std::vector<T>& B, std::unordered_set<T>* C) {
+  std::vector<T> V;
+  diff<T>(A, B, &V);
+  *C = std::move(std::unordered_set<T>(V.begin(), V.end()));
+}/* diff */
+
+template<typename T>
+void diff(const US<T>& A, const US<T>& B, US<T>* C) {
+  C->clear();
+  for (const T& a : A) {
+    if (B.count(a)) continue;
+    C->insert(a);
+  }
+}/* diff */
+
 /* return A cap B nonempty */
 template<typename T>
 bool cap(const std::vector<T>& A, const std::vector<T>& B) {
-  for (const auto& a : A) {
+  std::unordered_set<T> C;
+  return cap<T>(A, B, &C);
+}/* cap */
+
+/* return A cap B */
+template<typename T>
+bool cap(const std::vector<T>& A, const std::vector<T>& B, std::unordered_set<T>* C) {
+  C->clear();
+  for (const T& a : A) {
     auto iter = std::find(B.begin(), B.end(), a);
-    if (iter != B.end()) return true;
+    if (iter == B.end()) continue;
+    C->insert(a);
   }/* for a */
-  return false;
+  return C->size() > 0;
 }/* cap */
 
 /* return vector {0, 1, ..., n-1} */

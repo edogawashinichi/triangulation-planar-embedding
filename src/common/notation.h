@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <unordered_map>
+#include <unordered_set>
 #include <string>
 
 namespace TriangulationPlanarEmbedding {
@@ -13,6 +14,8 @@ namespace TriangulationPlanarEmbedding {
 #define I size_t
 #define VI std::vector<I>
 #define VVI std::vector<VI>
+#define US std::unordered_set
+#define SI US<I>
 #define UM std::unordered_map
 #define MIVI UM<I,VI>
 #define S std::string
@@ -36,16 +39,19 @@ if (map.count(x)) {        \
 
 /* singleton pattern */
 
-#define SINGLETON_ASSERTION(Class)                \
-public:                                           \
-  inline ~Class() = default;                      \
-  inline Class(const Class&) = delete;            \
-  inline Class& operator=(const Class&) = delete; \
-  inline static Class& getInstance() {            \
-    static Class instance;                        \
-    return instance;                              \
-  }                                               \
-private:                                          \
+#define SINGLETON_ASSERTION_WITHOUT_PRIVATE(Class) \
+public:                                            \
+  inline ~Class() = default;                       \
+  inline Class(const Class&) = delete;             \
+  inline Class& operator=(const Class&) = delete;  \
+  inline static Class& getInstance() {             \
+    static Class instance;                         \
+    return instance;                               \
+  }
+
+#define SINGLETON_ASSERTION(Class)         \
+SINGLETON_ASSERTION_WITHOUT_PRIVATE(Class) \
+private:                                   \
   inline Class() = default;
 
 /* constructors and assignments of a class with members

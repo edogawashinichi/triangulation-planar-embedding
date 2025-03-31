@@ -7,7 +7,8 @@
 namespace TriangulationPlanarEmbedding {
 
 class Icosahedron : public Graph {
-public:
+SINGLETON_ASSERTION_WITHOUT_PRIVATE(Icosahedron)
+private:
   inline Icosahedron() : Graph() {
     Graph::setN(12);
     const VVI edges = {
@@ -27,6 +28,14 @@ public:
       Graph::addSymmetry(edge[0], edge[1]);
     }/* for */
   }/* constructor default */
+public:
+  inline virtual void show(std::ostream& cout) const override {
+    TEST_RETURN
+    SHOW_ENDL(cout, "this is an icosahedron")
+    Graph::show(cout);
+  }/* show */
 };/* class Icosahedron */
+
+#define ICOSAHEDRON Icosahedron::getInstance()
 
 }/* namespace TriangulationPlanarEmbedding */

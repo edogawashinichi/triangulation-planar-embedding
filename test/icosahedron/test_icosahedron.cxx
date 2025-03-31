@@ -5,10 +5,9 @@
 using namespace TriangulationPlanarEmbedding;
 
 TEST_START(0)
-  Icosahedron IC;
-  INFO_OBJ(IC)
-  res = res && (12 == IC.n());
-  res = res && (30 == IC.m());
+  INFO_OBJ(ICOSAHEDRON)
+  res = res && (12 == ICOSAHEDRON.n());
+  res = res && (30 == ICOSAHEDRON.m());
 TEST_END(0)
 
 MAIN_START

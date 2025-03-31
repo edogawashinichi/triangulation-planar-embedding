@@ -9,6 +9,8 @@ namespace TriangulationPlanarEmbedding {
 
 template<size_t N>
 class CompleteGraph : public Graph {
+/*SINGLETON_ASSERTION_WITHOUT_PRIVATE(CompleteGraph)
+private:*/
 public:
   inline CompleteGraph() : Graph() {
     Graph::setN(N);
@@ -19,6 +21,7 @@ public:
       }/* for j */
     }/* for i */
   }/* constructor default */
+public:
   inline virtual void show(std::ostream& cout) const override {
     TEST_RETURN
     const S info("this is a complete graph of size " + std::to_string(Graph::n_));

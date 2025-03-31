@@ -104,4 +104,19 @@ MODE_PROC(std::cout, VERBOSE, start, msg)
 #define VERBOSE_END(msg) \
 MODE_PROC(std::cout, VERBOSE, end, msg)
 
+/* info debug verbose * VI */
+
+#define MODE_VI_ENDL(cout, MODE, vi) \
+if (_##MODE) {                       \
+  cout << SS(vi) << HINT;            \
+  SHOW_VI_ENDL(cout, vi)             \
+}
+
+#define INFO_VI(vi) \
+MODE_VI_ENDL(std::cout, INFO, vi)
+#define DEBUG_VI(vi) \
+MODE_VI_ENDL(std::cout, DEBUG, vi)
+#define VERBOSE_VI(vi) \
+MODE_VI_ENDL(std::cout, VERBOSE, vi)
+
 }/* namespace TriangulationPlanarEmbedding */

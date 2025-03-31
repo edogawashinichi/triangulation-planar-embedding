@@ -28,7 +28,6 @@ cd ${BIN_DIR}
 obj_num=`ls -l|grep "^-"|wc -l`
 echo "obj number: ${obj_num}"
 if [ ${test_num} -eq ${obj_num} ]; then
-  echo -e "${front_green_back_yellow}make all succeeded!${reset}"
   # test
   test_fail_num=0
   cd ${BIN_DIR}
@@ -36,6 +35,7 @@ if [ ${test_num} -eq ${obj_num} ]; then
   for file in ${bin_files}; do
     echo -e -n "${front_cyan_back_magenta}${file}${reset}\n"
     if [ $# -gt 0 ]; then
+      ./${file} $1
       ./${file} $1 | grep -A 20 -B 20 "FAIL"
     else
       ./${file} | grep -A 20 -B 20 "FAIL"
@@ -47,14 +47,14 @@ if [ ${test_num} -eq ${obj_num} ]; then
     fi
   done
   cd ..
-  echo -e "${front_green_back_yellow}make all succeeded!${reset}"
+  echo -e "${front_green_back_yellow}make all succeeded!(${obj_num}/${test_num})${reset}"
   if [ ${test_fail_num} -ne 0 ]; then
-    echo -e "${front_red_back_yellow}test not all succeeded!${reset}"
+    echo -e "${front_red_back_yellow}test not all succeeded!(failing ${test_fail_num}/${obj_num})${reset}"
   else
-    echo -e "${front_green_back_yellow}test all succeeded!${reset}"
+    echo -e "${front_green_back_yellow}test all succeeded!(${obj_num}/${obj_num})${reset}"
   fi
 else
-  echo -e "${front_green_back_yellow}make not all succeeded!${reset}"
+  echo -e "${front_red_back_yellow}make not all succeeded!(${obj_num}/${test_num})${reset}"
 fi
 
 echo "end test ..."

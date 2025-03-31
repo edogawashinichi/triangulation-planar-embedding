@@ -69,19 +69,19 @@ S_BLUE(SS(test_##i)) + " " + S_RED("FAILED!")
 cout << SS(var) << "=" << var;
 #define SHOW_VAR_2(cout, var, ...) \
 SHOW_VAR_1(cout, var)              \
-cout << SPACE(2);                  \
+cout << SPACE(1);                  \
 SHOW_VAR_1(cout, __VA_ARGS__)
 #define SHOW_VAR_3(cout, var, ...) \
 SHOW_VAR_1(cout, var)              \
-cout << SPACE(2);                  \
+cout << SPACE(1);                  \
 SHOW_VAR_2(cout, __VA_ARGS__)
 #define SHOW_VAR_4(cout, var, ...) \
 SHOW_VAR_1(cout, var)              \
-cout << SPACE(2);                  \
+cout << SPACE(1);                  \
 SHOW_VAR_3(cout, __VA_ARGS__)
 #define SHOW_VAR_5(cout, var, ...) \
 SHOW_VAR_1(cout, var)              \
-cout << SPACE(2);                  \
+cout << SPACE(1);                  \
 SHOW_VAR_4(cout, __VA_ARGS__)
 
 #define SHOW_VAR(cout, ...)                                           \
@@ -94,6 +94,15 @@ SHOW_VAR(cout, __VA_ARGS__)      \
 cout << ENDL;
 
 /* show complicated structure */
+
+#define SHOW_VI(cout, vi)  \
+for (const I ele : vi) {   \
+  cout << ele << SPACE(1); \
+}
+
+#define SHOW_VI_ENDL(cout, vi) \
+SHOW_VI(cout, vi)              \
+cout << ENDL;
 
 #define SHOW_PAIR_WITH_PARENTH(cout, p) \
 cout << "(" << p.first << "," << p.second << ")";
