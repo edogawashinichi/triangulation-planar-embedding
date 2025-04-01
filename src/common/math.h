@@ -126,13 +126,6 @@ void diff(const US<T>& A, const US<T>& B, US<T>* C) {
   }
 }/* diff */
 
-/* return A cap B nonempty */
-template<typename T>
-bool cap(const std::vector<T>& A, const std::vector<T>& B) {
-  std::unordered_set<T> C;
-  return cap<T>(A, B, &C);
-}/* cap */
-
 /* return A cap B */
 template<typename T>
 bool cap(const std::vector<T>& A, const std::vector<T>& B, std::unordered_set<T>* C) {
@@ -143,6 +136,25 @@ bool cap(const std::vector<T>& A, const std::vector<T>& B, std::unordered_set<T>
     C->insert(a);
   }/* for a */
   return C->size() > 0;
+}/* cap */
+
+/* return A cap B nonempty */
+template<typename T>
+bool cap(const std::vector<T>& A, const std::vector<T>& B) {
+  std::unordered_set<T> C;
+  return cap<T>(A, B, &C);
+}/* cap */
+
+/* return A cap B */
+template<typename T>
+bool cap(const std::vector<T>& A, const std::vector<T>& B, std::vector<T>* C) {
+  std::unordered_set<T> set;
+  bool res = cap<T>(A, B, &set);
+  C->clear();
+  for (const auto& ele : set) {
+    C->emplace_back(ele);
+  }
+  return res;
 }/* cap */
 
 /* return vector {0, 1, ..., n-1} */

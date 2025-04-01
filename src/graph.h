@@ -40,6 +40,17 @@ public:
     if (!neighbors_.count(u)) return false;
     return find_element_in_vector<I>(v, neighbors_.at(u));
   }/* containEdge */
+  inline VII getEdges() const {
+    VII res;
+    for (const auto& kv : neighbors_) {
+      const I u = kv.first;
+      for (const I& v : kv.second) {
+        if (u >= v) continue;
+        res.emplace_back(PII({u, v}));
+      }/* for v */
+    }/* for kv */
+    return res;
+  }/* getEdges */
   inline bool symmetry(const I u, const I v) const {
     /* assuming the graph contains (u,v) */
     /* to determing whether it contains (v,u) */

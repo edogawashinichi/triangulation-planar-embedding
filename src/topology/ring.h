@@ -17,6 +17,13 @@ public:
     TEST_RETURN
     SHOW_VI_ENDL(cout, vertices_)
   }/* show */
+  inline void addExceptLast(const VI& addtion) {
+    /* assuming addtion nonempty */
+    vertices_.insert(vertices_.end(), addtion.begin(), addtion.end() - 1);
+  }/* addExceptLast */
+  inline void clear() {
+    vertices_.clear();
+  }/* clear */
 };/* class Ring */
 
 }/* namespace TriangulationPlanarEmbedding */

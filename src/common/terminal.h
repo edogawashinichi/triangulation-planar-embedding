@@ -35,7 +35,7 @@ namespace TriangulationPlanarEmbedding {
 
 #define STR(some) #some
 
-#define SS(some) S(STR(some))
+#define SS(some) STR(some)
 
 #define SPACE(k) S(k, ' ')
 
@@ -43,7 +43,7 @@ namespace TriangulationPlanarEmbedding {
 
 #define TO S("->")
 
-#define ENDL S("\n")
+#define ENDL "\n"
 
 #define SEPAR(k) S(k, '-')
 

@@ -27,6 +27,8 @@ namespace TriangulationPlanarEmbedding {
 #define P std::pair
 #define PFF P<F,F>
 #define MIPFF UM<I,PFF>
+#define PII P<I,I>
+#define VII std::vector<PII>
 
 /* fundamental operation */
 
