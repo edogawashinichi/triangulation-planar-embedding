@@ -21,10 +21,10 @@ TEST_END(0)
 TEST_START(1)
   CompleteThreeResult k3;
   GRAPH_SEARCHER.findCompleteThree(ICOSAHEDRON, &k3);
-  DEBUG_OBJ(k3)
+  INFO_OBJ(k3)
   Ring ring;
   GRAPH_SEARCHER.findInnerRing(ICOSAHEDRON, k3, &ring);
-  DEBUG_OBJ(ring)
+  INFO_OBJ(ring)
 TEST_END(1)
 
 MAIN_START

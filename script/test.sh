@@ -1,5 +1,9 @@
 #!/usr/bin/sh
 
+# usage: bash test.sh v/d/i test_solver/xxx
+#        bash test.sh v/d/i
+#        bash test.sh
+
 echo "start test ..."
 
 ROOT_DIR=/mnt/triangulation-planar-embedding
@@ -34,6 +38,12 @@ if [ ${test_num} -eq ${obj_num} ]; then
   bin_files=$(ls)
   for file in ${bin_files}; do
     echo -e -n "${front_cyan_back_magenta}${file}${reset}\n"
+    if [ $# -gt 1 ]; then
+      if [ ${file} != test_$2 ]; then
+        echo -e "${prefix}${front_red}m SKIP${reset} ${file} != test_$2"
+        continue
+      fi
+    fi
     if [ $# -gt 0 ]; then
       ./${file} $1
       ./${file} $1 | grep -A 20 -B 20 "FAIL"

@@ -128,12 +128,26 @@ for (const auto& kv : msome) {                     \
 }                                                  \
 cout << ENDL;
 
+#define SHOW_VII_ENDL(cout, vii)     \
+cout << SS(vii) << HINT;             \
+for (const auto& pair : vii) {       \
+  SHOW_PAIR_WITH_PARENTH(cout, pair) \
+  cout << SPACE(1);                  \
+}                                    \
+cout << ENDL;
+
 #define SHOW_MIPFF_ENDL(cout, mipff)      \
 cout << SS(mipff) << HINT << ENDL;        \
 for (const auto& kv : mipff) {            \
   cout << kv.first << TO;                 \
   SHOW_PAIR_WITH_PARENTH_ENDL(cout, kv.second) \
 }
+
+#define HINT_INDEX(cout, i) \
+cout << i << "th" << HINT;
+#define HINT_INDEX_ENDL(cout, i) \
+HINT_INDEX(cout, i)              \
+cout << ENDL;
 
 #define SHOW_ENDL(cout, s) \
 cout << s << ENDL;
