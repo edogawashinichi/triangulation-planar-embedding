@@ -110,6 +110,14 @@ void diff(const std::vector<T>& A, const std::vector<T>& B, std::vector<T>* C) {
   }/* for A */
 }/* diff */
 
+/* A = A - B */
+template<typename T>
+void diff(std::vector<T>* A, const std::vector<T>& B) {
+  std::vector<T> C;
+  diff<T>(*A, B, &C);
+  std::swap(C, *A);
+}/* diff */
+
 template<typename T>
 void diff(const std::vector<T>& A, const std::vector<T>& B, std::unordered_set<T>* C) {
   std::vector<T> V;
@@ -205,7 +213,31 @@ void dict_sort(std::vector<std::vector<T>>& vv, const bool ascend = true) {
   std::sort(vv.begin(), vv.end(), cmp);
 }/* dict_sort */
 
+/* cyclic operation */
 /* specially cycle_sort is for kempe chain components around a ring */
+
+/* remove adjacent duplicate in a cycle */
+template<typename T>
+void trim_cycle(std::vector<T>* cycle) {
+  const int n = cycle->size();
+  if (n <= 1) return;
+  /* n >= 2 */
+  std::vector<T> res;
+  const T& a = cycle->front();
+  res.emplace_back(a);
+  for (int i = 1; i <= n - 2; ++i) {
+    const T& u = (*cycle)[i - 1];
+    const T& v = (*cycle)[i];
+    if (v == u) continue;
+    res.emplace_back(v);
+  }/* for */
+  const T& u = (*cycle)[n - 2];
+  const T& v = (*cycle)[n - 1];
+  if (v != u && v != a) {
+    res.emplace_back(v);
+  }/* if */
+  std::swap(res, *cycle);
+}/* trim_cycle */
 
 /* cycle_sort for vector with cycle */
 template<typename T>

@@ -3,6 +3,8 @@
 # usage: bash test.sh v/d/i test_solver/xxx
 #        bash test.sh v/d/i
 #        bash test.sh
+#
+# new usage: bash test.sh v/d/i n 0/1/2/3
 
 echo "start test ..."
 
@@ -36,11 +38,20 @@ if [ ${test_num} -eq ${obj_num} ]; then
   test_fail_num=0
   cd ${BIN_DIR}
   bin_files=$(ls)
+  file_index=-1
   for file in ${bin_files}; do
-    echo -e -n "${front_cyan_back_magenta}${file}${reset}\n"
-    if [ $# -gt 1 ]; then
+    let file_index++
+    echo -e -n "${prefix}${front_green}m${file_index}${reset} ${front_cyan_back_magenta}${file}${reset}\n"
+    if [ $# -gt 2 ]; then
+      if [ $2 == n ] && [ $3 -eq ${file_index} ]; then
+        echo -e "test file index ${prefix}${front_green}m${file_index}${reset}"
+      else
+        echo -e "${prefix}${front_red}m  SKIP${reset} ${file} != ${file_index}"
+        continue
+      fi
+    elif [ $# -gt 1 ]; then
       if [ ${file} != test_$2 ]; then
-        echo -e "${prefix}${front_red}m SKIP${reset} ${file} != test_$2"
+        echo -e "${prefix}${front_red}m  SKIP${reset} ${file} != test_$2"
         continue
       fi
     fi
@@ -53,9 +64,9 @@ if [ ${test_num} -eq ${obj_num} ]; then
     if [ $? -eq 0 ]; then
       let test_fail_num++
     else
-      echo -e "${prefix}${front_green}m OK${reset}"
+      echo -e "${prefix}${front_green}m  OK${reset}"
     fi
-  done
+  done # for
   cd ..
   echo -e "${front_green_back_yellow}make all succeeded!(${obj_num}/${test_num})${reset}"
   if [ ${test_fail_num} -ne 0 ]; then

@@ -1,15 +1,36 @@
 /* graph_searcher.h */
 
+/* assuming the graph is a 5-star-connected triangulation */
+/* 5-star-connected: */
+/*     firstly, 5-connected
+       secondly, every 5 ring must be a 5 wheel */
+
+/* every adjacent vertex pair has exactly 2 guards 
+       proof: assuming 3 guards ==> at most 3-connected */
+
+/* every triangle has exactly 3 guards 
+       proof: assuming 2 guards ==> one vertex pair has 3 guards */
+
+/* every 4-ring has exactly 4 guards */
+/* every 5-ring has exactly 1 or 5 semi-guards */
+
+/* a 6-ring may have exactly 1 or 2 or 3 or 4 or 5 or 6 semi-guards */
+
 #pragma once
 
 #include "../graph.h"
 #include "../topology/complete_three.h"
 #include "../common/notation.h"
+#include "../solver/ring_in_ring.h"
 
 namespace TriangulationPlanarEmbedding {
 
 class GraphSearcher {
 SINGLETON_ASSERTION(GraphSearcher)
+public:
+  bool findOutermostRing(const Graph& graph, RingInRing* ring);
+  bool findSubouterRing(const Graph& graph, const RingInRing& outermost_ring, RingInRing* subouter_ring);
+  void findInnerRing(const Graph& graph, const RingInRing& outer_ring, const RingInRing& ring, RingInRing* inner_ring);
 public:
   bool findRingPath(const Graph& graph, const VI& vertices, const I start_vertex, const I end_vertex, VI* path);
 protected:
