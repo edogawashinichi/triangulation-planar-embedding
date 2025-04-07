@@ -38,4 +38,6 @@ public:
 
 #define ICOSAHEDRON Icosahedron::getInstance()
 
+#define ICOSA_3_6_3 ICOSAHEDRON
+
 }/* namespace TriangulationPlanarEmbedding */
