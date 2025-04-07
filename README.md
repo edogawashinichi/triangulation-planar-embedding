@@ -1,12 +1,12 @@
 # Introduction
 This project is aimed to draw a triangulation on a plane.\
 The current tools, such as networkx, perform not well,
-so this is why this project emerges.
+so this is why this project emerges.\
+A triangulation is a planar graph, each face of which is a triangle, or equivalently it satisfies $m=3n-6$ where $m$/$n$ is the number of edges/vertices of the graph.\
+For the purpose of studying the four color theorem, we mainly consider triangulations that are 5-star-connected, which means they are 5-connected and any 5-ring must be a 5-wheel.
 # Input
-A triangulation, which is a planar graph with $m=3n-6$,
-where $m$($n$) is the number of edges(vertices) of the graph respectively.\
-Currently users guarantee the input is a triangulation,
-which will be verified by the project in the future.\
+Currently users guarantee the input is a 5-star-connected triangulation,
+which will be verified by the program in the future.\
 The input json file is in the following format:
 ```json
 {

@@ -24,21 +24,20 @@ void SolverRingInRing::findRingResult(const Graph& graph, RingResult* ring_resul
   DEBUG_OBJ(subouter_ring)
   ring_result->add(outermost_ring);
   ring_result->add(subouter_ring);
-  VI vertices(id<I>(graph.n()));
-  diff<I>(&vertices, outermost_ring.getVertices());
-  diff<I>(&vertices, subouter_ring.getVertices());
+  VI unvisited_vertices(id<I>(graph.n()));
+  diff<I>(&unvisited_vertices, outermost_ring.getVertices());
+  diff<I>(&unvisited_vertices, subouter_ring.getVertices());
   for (size_t i = 2; true; ++i) {
     const RingInRing& outer_ring = ring_result->getConst(i - 2);
     const RingInRing& ring = ring_result->getConst(i - 1);
     RingInRing inner_ring;
     GRAPH_SEARCHER.findInnerRing(graph, outer_ring, ring, &inner_ring);
     ring_result->add(inner_ring);
-    diff<I>(&vertices, inner_ring.getVertices());
+    diff<I>(&unvisited_vertices, inner_ring.getVertices());
     SHOW_VAR_ENDL(std::cout, i)
     DEBUG_OBJ(inner_ring)
-    DEBUG_VI(vertices)
-    if (2 == i) break;
-    if (vertices.empty()) break;
+    DEBUG_VI(unvisited_vertices)
+    if (unvisited_vertices.empty()) break;
   }/* while */
   DEBUG_END(SolverRingInRing::findRingResult)
 }/* SolverRingInRing::findRingResult */

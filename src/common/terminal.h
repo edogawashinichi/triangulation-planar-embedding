@@ -95,9 +95,13 @@ cout << ENDL;
 
 /* show complicated structure */
 
-#define SHOW_VI(cout, vi)  \
-for (const I ele : vi) {   \
-  cout << ele << SPACE(1); \
+#define SHOW_VI(cout, vi)    \
+if (vi.empty()) {            \
+  cout << "empty";           \
+} else {                     \
+  for (const I ele : vi) {   \
+    cout << ele << SPACE(1); \
+  }                          \
 }
 
 #define SHOW_VI_ENDL(cout, vi) \
