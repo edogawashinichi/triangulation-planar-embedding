@@ -141,6 +141,7 @@ inline Class& operator=(Class&& rhs) {             \
 } /* assignment movecopy */
 
 #define CLASS_4_FUNCTIONS(Class, ...)               \
+public:                                             \
 CLASS_CONSTRUCTOR_DEEPCOPY(Class, rhs, __VA_ARGS__) \
 CLASS_CONSTRUCTOR_MOVECOPY(Class, rhs, __VA_ARGS__) \
 CLASS_ASSIGNMENT_DEEPCOPY(Class, rhs, __VA_ARGS__)  \

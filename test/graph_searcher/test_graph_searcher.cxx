@@ -29,30 +29,42 @@ TEST_END(1)
 
 TEST_START(2)
   RingInRing outermost_ring;
-  GRAPH_SEARCHER.findOutermostRing(ICOSAHEDRON, &outermost_ring);
+  MergedRingInRing merged_outermost_ring;
+  GRAPH_SEARCHER.findOutermostRing(ICOSAHEDRON, &outermost_ring, &merged_outermost_ring);
   INFO_OBJ(outermost_ring)
+  INFO_OBJ(merged_outermost_ring)
 TEST_END(2)
 
 TEST_START(3)
   RingInRing outermost_ring;
-  GRAPH_SEARCHER.findOutermostRing(ICOSAHEDRON, &outermost_ring);
+  MergedRingInRing merged_outermost_ring;
+  GRAPH_SEARCHER.findOutermostRing(ICOSAHEDRON, &outermost_ring, &merged_outermost_ring);
   DEBUG_OBJ(outermost_ring)
+  DEBUG_OBJ(merged_outermost_ring)
   RingInRing subouter_ring;
-  GRAPH_SEARCHER.findSubouterRing(ICOSAHEDRON, outermost_ring, &subouter_ring);
+  MergedRingInRing merged_subouter_ring;
+  GRAPH_SEARCHER.findSubouterRing(ICOSAHEDRON, outermost_ring, &subouter_ring, &merged_subouter_ring);
   INFO_OBJ(subouter_ring)
+  INFO_OBJ(merged_subouter_ring)
 TEST_END(3)
 
 TEST_START(4)
   const Graph& graph = ICOSAHEDRON;
   RingInRing outermost_ring;
-  GRAPH_SEARCHER.findOutermostRing(graph, &outermost_ring);
+  MergedRingInRing merged_outermost_ring;
+  GRAPH_SEARCHER.findOutermostRing(graph, &outermost_ring, &merged_outermost_ring);
   VERBOSE_OBJ(outermost_ring)
+  VERBOSE_OBJ(merged_outermost_ring)
   RingInRing subouter_ring;
-  GRAPH_SEARCHER.findSubouterRing(graph, outermost_ring, &subouter_ring);
+  MergedRingInRing merged_subouter_ring;
+  GRAPH_SEARCHER.findSubouterRing(graph, outermost_ring, &subouter_ring, &merged_subouter_ring);
   VERBOSE_OBJ(subouter_ring)
+  VERBOSE_OBJ(merged_subouter_ring)
   RingInRing next_ring;
-  GRAPH_SEARCHER.findInnerRing(graph, outermost_ring, subouter_ring, &next_ring);
+  MergedRingInRing merged_next_ring;
+  GRAPH_SEARCHER.findInnerRing(graph, outermost_ring, subouter_ring, &next_ring, &merged_next_ring);
   INFO_OBJ(next_ring)
+  INFO_OBJ(merged_next_ring)
 TEST_END(4)
 
 MAIN_START

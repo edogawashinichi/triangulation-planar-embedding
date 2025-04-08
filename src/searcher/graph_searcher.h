@@ -22,15 +22,16 @@
 #include "../topology/complete_three.h"
 #include "../common/notation.h"
 #include "../solver/ring_in_ring.h"
+#include "../solver/merged_ring_in_ring.h"
 
 namespace TriangulationPlanarEmbedding {
 
 class GraphSearcher {
 SINGLETON_ASSERTION(GraphSearcher)
 public:
-  bool findOutermostRing(const Graph& graph, RingInRing* ring);
-  bool findSubouterRing(const Graph& graph, const RingInRing& outermost_ring, RingInRing* subouter_ring);
-  void findInnerRing(const Graph& graph, const RingInRing& outer_ring, const RingInRing& ring, RingInRing* inner_ring);
+  bool findOutermostRing(const Graph& graph, RingInRing* ring, MergedRingInRing* merged_ring);
+  bool findSubouterRing(const Graph& graph, const RingInRing& outermost_ring, RingInRing* subouter_ring, MergedRingInRing* merged_subouter_ring);
+  void findInnerRing(const Graph& graph, const RingInRing& outer_ring, const RingInRing& ring, RingInRing* inner_ring, MergedRingInRing* merged_inner_ring);
 public:
   bool findRingPath(const Graph& graph, const VI& vertices, const I start_vertex, const I end_vertex, VI* path);
 protected:

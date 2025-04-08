@@ -9,20 +9,26 @@
 
 namespace TriangulationPlanarEmbedding {
 
-bool GraphSearcher::findOutermostRing(const Graph& graph, RingInRing* ring) {
+bool GraphSearcher::findOutermostRing(const Graph& graph, RingInRing* ring, MergedRingInRing* merged_ring) {
   /* ring must be 3-ring */
   DEBUG_START(findOutermostRing)
   ring->clear();
+  merged_ring->clear();
+
   CompleteThreeResult result;
   bool res = this->findCompleteThree(graph, &result);
   ring->add(result.vertices_);
+  merged_ring->add(result.vertices_);
+
   DEBUG_END(findOutermostRing)
   return res;
 }/* GraphSearcher::findOutermostRing */
 
-bool GraphSearcher::findSubouterRing(const Graph& graph, const RingInRing& outermost_ring, RingInRing* subouter_ring) {
+bool GraphSearcher::findSubouterRing(const Graph& graph, const RingInRing& outermost_ring, RingInRing* subouter_ring, MergedRingInRing* merged_subouter_ring) {
   /* outermost_ring has exactly 3 guards on subouter_ring */
   DEBUG_START(findSubouterRing)
+  subouter_ring->clear();
+  merged_subouter_ring->clear();
 
   /* find the 3 guards */
   VI guards;
@@ -41,8 +47,9 @@ bool GraphSearcher::findSubouterRing(const Graph& graph, const RingInRing& outer
   /* find the subouter_ring path between each guard pair */
   const int k = guards.size();/* k==n==3 */
   for (int i = 0; i < k; ++i) {
+    const I next_i = (i + 1) % k;
     const I a = guards[i];
-    const I b = guards[(i + 1) % k];
+    const I b = guards[next_i];
     VI common_neighbors;
     cap<I>(graph.neighbors(a), graph.neighbors(b), &common_neighbors);/* |common_neighbors|==2 */
     VI neighbors_on_outermost;
@@ -55,17 +62,18 @@ bool GraphSearcher::findSubouterRing(const Graph& graph, const RingInRing& outer
     VI path;
     this->findRingPath(subgraph, neighbors_on_subouter, a, b, &path);
     DEBUG_VI(path)
-    const I next_i = (i + 1) % n;
     subouter_ring->add(a, vertices[i], vertices[next_i], i, next_i);
+    merged_subouter_ring->add(a, vertices[i], vertices[next_i], i, next_i);
     for (int j = 1; j < path.size() - 1; ++j) {
       subouter_ring->add(path[j]);
+      merged_subouter_ring->add(path[j]);
     }/* for j */
   }/* for i */
   DEBUG_END(findSubouterRing)
   return subouter_ring->size() > 0;
 }/* GraphSearcher::findSubouterRing */
 
-void GraphSearcher::findInnerRing(const Graph& graph, const RingInRing& outer_ring, const RingInRing& ring, RingInRing* inner_ring) {
+void GraphSearcher::findInnerRing(const Graph& graph, const RingInRing& outer_ring, const RingInRing& ring, RingInRing* inner_ring, MergedRingInRing* merged_inner_ring) {
   /* the outermost ring must be a 3-ring */
   /* the guards on the subouter ring must be 3 distinct vertices */
   /*     the subouter ring must have no duplicate */
@@ -77,32 +85,12 @@ void GraphSearcher::findInnerRing(const Graph& graph, const RingInRing& outer_ri
 
   DEBUG_START(GraphSearcher::findInnerRing)
   inner_ring->clear();
+  merged_inner_ring->clear();
   
   /* find ring's guards on inner_ring */
   /* these guards may have duplicate (adjacent or non-adjacent) */
 
-  /* WARNING: missing parents information
-  VI guards_on_inner_ring;
-  const VI& vertices = ring.getVertices();
-  const int n = vertices.size();
-  for (int i = 0; i < n; ++i) {
-    const I next_i = (i + 1) % n;
-    const I u = vertices[i];
-    const I v = vertices[next_i];
-    VI common_neighbors;
-    cap<I>(graph.neighbors(u), graph.neighbors(v), &common_neighbors);
-    VI neighbors_excluding_outer;
-    diff<I>(common_neighbors, outer_ring.getVertices(), &neighbors_excluding_outer);
-    VI neighbors_on_inner;
-    diff<I>(neighbors_excluding_outer, vertices, &neighbors_on_inner);
-    if (neighbors_on_inner.empty()) continue;
-    const I w = neighbors_on_inner.front();
-    guards_on_inner_ring.emplace_back(w);
-  }
-  DEBUG_VI(guards_on_inner_ring)
-  trim_cycle<I>(&guards_on_inner_ring);
-  DEBUG_VI(guards_on_inner_ring)
-  */
+  /* WARNING: parents information is required*/
   RingInRing guards_on_inner_ring;/* raw guards */
   const VI& ring_vertices = ring.getVertices();
   const int n = ring_vertices.size();
@@ -138,7 +126,10 @@ void GraphSearcher::findInnerRing(const Graph& graph, const RingInRing& outer_ri
     const I a = guards.getConst(j).getVertex();
     const I next_j = (j + 1) % k;
     const I b = guards.getConst(next_j).getVertex();
-    if (a == b) continue; 
+    if (a == b) {
+      merged_inner_ring->add(guards.getConst(j));
+      continue;
+    }/* if */ 
     VI common_parent;
     cap<I>(guards.getConst(j).getParentsVector(), guards.getConst(next_j).getParentsVector(), &common_parent);
     DEBUG_VI(common_parent)
@@ -153,8 +144,10 @@ void GraphSearcher::findInnerRing(const Graph& graph, const RingInRing& outer_ri
     this->findRingPath(subgraph, neighbors_on_inner, a, b, &path);
     DEBUG_VI(path)
     inner_ring->add(guards.getConst(j));
+    merged_inner_ring->add(guards.getConst(j));
     for (size_t index = 1; index < path.size() - 1; ++index) {
       inner_ring->add(path[index]);
+      merged_inner_ring->add(path[index]);
     }/* for path */
   }/* for guards */
 

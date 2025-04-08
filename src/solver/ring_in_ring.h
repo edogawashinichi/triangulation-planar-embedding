@@ -43,6 +43,12 @@ public:
   inline I getVertex() const {
     return vertex_;
   }/* getVertex */
+  inline const PII& getParents() const {
+    return parents_;
+  }/* getParents */
+  inline const PII& getIndices() const {
+    return indices_;
+  }/* getIndices */
   inline VI getParentsVector() const {
     return {parents_.first, parents_.second};
   }/* getParentsVector */
@@ -128,7 +134,7 @@ public:
   }/* show */
   inline void showStructure(std::ostream& cout) const {
     TEST_RETURN
-    cout << "this is the structure of RingResult" << HINT;
+    cout << "the structure of RingResult" << HINT;
     for (size_t i = 0; i < rings_.size(); ++i) {
       cout << rings_[i].distinctSize() << SEPAR(1);
     }/* for */
