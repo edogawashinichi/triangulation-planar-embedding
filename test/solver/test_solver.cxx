@@ -4,6 +4,7 @@
 #include "../../src/solver/solver_ring_in_ring.h"
 #include "../../src/topology/icosahedron.h"
 #include "../../src/topology/icosa_3_6_6.h"
+#include "../../src/topology/icosa_3_7_4.h"
 
 using namespace TriangulationPlanarEmbedding;
 
@@ -30,8 +31,17 @@ TEST_START(2)
   INFO_OBJ(embedding)
 TEST_END(2)
 
+TEST_START(3)
+  const Graph& graph = ICOSA_3_7_4;
+  Config config;
+  Embedding embedding;
+  SOLVER_RING_IN_RING.run(graph, config, &embedding);
+  INFO_OBJ(embedding)
+TEST_END(3)
+
 MAIN_START
   TEST(0)
   TEST(1)
   TEST(2)
+  TEST(3)
 MAIN_END
