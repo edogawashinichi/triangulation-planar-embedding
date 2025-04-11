@@ -141,7 +141,6 @@ for (const auto& pair : vii) {       \
 cout << ENDL;
 
 #define SHOW_MIPFF_ENDL(cout, mipff)      \
-cout << SS(mipff) << HINT << ENDL;        \
 for (const auto& kv : mipff) {            \
   cout << kv.first << TO;                 \
   SHOW_PAIR_WITH_PARENTH_ENDL(cout, kv.second) \

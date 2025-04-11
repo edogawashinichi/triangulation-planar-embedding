@@ -20,4 +20,7 @@ extern bool G_INFO_MODE;
 extern bool G_DEBUG_MODE;
 extern bool G_VERBOSE_MODE;
 
+/* math */
+const double PI = 3.1415926;
+
 }/* namespace TriangulationPlanarEmbedding */

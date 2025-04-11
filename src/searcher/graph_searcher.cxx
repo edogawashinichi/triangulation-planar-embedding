@@ -66,7 +66,7 @@ bool GraphSearcher::findSubouterRing(const Graph& graph, const RingInRing& outer
     merged_subouter_ring->add(a, vertices[i], vertices[next_i], i, next_i);
     for (int j = 1; j < path.size() - 1; ++j) {
       subouter_ring->add(path[j]);
-      merged_subouter_ring->add(path[j]);
+      merged_subouter_ring->add(path[j], c);
     }/* for j */
   }/* for i */
   DEBUG_END(findSubouterRing)
@@ -147,7 +147,7 @@ void GraphSearcher::findInnerRing(const Graph& graph, const RingInRing& outer_ri
     merged_inner_ring->add(guards.getConst(j));
     for (size_t index = 1; index < path.size() - 1; ++index) {
       inner_ring->add(path[index]);
-      merged_inner_ring->add(path[index]);
+      merged_inner_ring->add(path[index], c);
     }/* for path */
   }/* for guards */
 

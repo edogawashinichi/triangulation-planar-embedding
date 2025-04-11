@@ -17,6 +17,9 @@ public:
   inline Embedding(const MIPFF& data) {
     this->set(data);
   }/* constructor */
+  inline void clear() {
+    vertex2point_.clear();
+  }/* clear */
   inline void set(const MIPFF& data) {
     for (const auto& kv : data) {
       this->add(kv.first, Point(kv.second.first, kv.second.second));
@@ -25,6 +28,10 @@ public:
   inline void add(const I vertex, const Point& point) {
     vertex2point_[vertex] = point;
   }/* add */
+  inline const Point& constPoint(const I vertex) const {
+    /* assuming valid vertex */
+    return vertex2point_.at(vertex);
+  }/* constPoint */
   inline Point getPoint(const I vertex) const {
     return vertex2point_.count(vertex) ? vertex2point_.at(vertex) : Point();
   }/* getPoint */

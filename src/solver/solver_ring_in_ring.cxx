@@ -2,6 +2,7 @@
 
 #include "solver_ring_in_ring.h"
 #include "../searcher/graph_searcher.h"
+#include "../tiler/balance_tiler.h"
 
 namespace TriangulationPlanarEmbedding {
 
@@ -14,6 +15,8 @@ void SolverRingInRing::run(const Graph& graph, const Config& config, Embedding* 
   DEBUG_OBJ(merged_ring_result)
   ring_result.showStructure(std::cout);
   merged_ring_result.showStructure(std::cout);
+  BALANCE_TILER.run(graph, config, merged_ring_result, embedding);
+  DEBUG_OBJ(*embedding)
   DEBUG_END(SolverRingInRing::run)
 }/* SolverRingInRing::run */
 

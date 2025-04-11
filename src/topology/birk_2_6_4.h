@@ -1,5 +1,7 @@
 /* birk_2_6_4.h */
 
+/* conjecture: birk_2_6_4 == icosa_3_6_3 == icosahedron */
+
 #pragma once
 
 #include "../graph.h"
@@ -36,6 +38,6 @@ public:
   }/* show */
 };/* class Birk_2_6_4 */
 
-#define BIRK_2_6_4 Icosa_2_6_4::getInstance()
+#define BIRK_2_6_4 Birk_2_6_4::getInstance()
 
 }/* namespace TriangulationPlanarEmbedding */

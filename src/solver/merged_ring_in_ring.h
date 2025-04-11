@@ -1,5 +1,8 @@
 /* merged_ring_in_ring.h */
 
+/* TODO: consider general situation */
+/* a vertex may have several single-parents and several multi-parents simutaneously */
+
 #pragma once
 
 #include "../common/debug.h"
@@ -9,11 +12,12 @@
 namespace TriangulationPlanarEmbedding {
 
 class MergedNodeOnRing {
-CLASS_4_FUNCTIONS(MergedNodeOnRing, vertex_, multi_parents_, multi_indices_)
+CLASS_4_FUNCTIONS(MergedNodeOnRing, vertex_, parent_, multi_parents_, multi_indices_)
 protected:
   I vertex_;
-  VII multi_parents_;
-  VII multi_indices_;
+  I parent_;/* for the vertex with single parent */
+  VII multi_parents_;/* for the vertex with at least one parents */
+  VII multi_indices_;/* TODO: may be removed */
 public:
   inline MergedNodeOnRing() {
     vertex_ = 0;
@@ -24,6 +28,12 @@ public:
     vertex_ = vertex;
     multi_parents_.clear();
     multi_indices_.clear();
+  }/* constructor */
+  inline MergedNodeOnRing(const I vertex, const I parent) {
+    vertex_ = vertex;
+    parent_ = parent;
+    multi_parents_.clear();
+    multi_parents_.clear();
   }/* constructor */
   inline MergedNodeOnRing(const I v, const I p, const I q, const I pi, const I qi) {
     vertex_ = v;
@@ -42,7 +52,21 @@ public:
   }/* show */
   inline size_t getVertex() const {
     return vertex_;
-  }/* for */
+  }/* getVertex */
+  inline const VII& getMultiParents() const {
+    return multi_parents_;
+  }/* getMultiParents */
+  inline VI getParentsVector() const {
+    SI set;
+    if (multi_parents_.empty()) {
+      set.insert(parent_);
+    }/* if */
+    for (const auto& parents : multi_parents_) {
+      set.insert(parents.first);
+      set.insert(parents.second);
+    }/* for */
+    return VI(set.begin(), set.end());
+  }/* getParentsVector */
 };/* class MergedNodeOnRing */
 
 class MergedRingInRing {
@@ -60,6 +84,10 @@ public:
   inline size_t size() const {
     return nodes_.size();
   }/* size */
+  inline const MergedNodeOnRing& getConst(const I index) const {
+    /* assuming valid index */
+    return nodes_[index];
+  }/* getConst */
   inline VI getVertices() const {
     VI res;
     for (const auto& node : nodes_) {
@@ -78,11 +106,11 @@ public:
   }/* add */
   inline void add(const VI& vertices) {
     for (const auto& vertex : vertices) {
-      this->add(vertex);
+      nodes_.emplace_back(MergedNodeOnRing(vertex));
     }/* for */
   }/* add */
-  inline void add(const I vertex) {
-    nodes_.emplace_back(MergedNodeOnRing(vertex));
+  inline void add(const I vertex, const I parent) {
+    nodes_.emplace_back(MergedNodeOnRing(vertex, parent));
   }/* add */
   inline void add(const I vertex, const I p, const I q, const I pi, const I qi) {
     const VI& vertices = this->getVertices();
@@ -118,6 +146,13 @@ public:
   inline void add(const MergedRingInRing& ring) {
     rings_.emplace_back(ring);
   }/* add */
+  inline I size() const {
+    return rings_.size();
+  }/* size */
+  inline const MergedRingInRing& getConst(const I index) const {
+    /* assuming valid index */
+    return rings_[index];
+  }/* getConst */
 };/* class MergedRingResult */
 
 }/* namespace TriangulationPlanarEmbedding */
