@@ -1,5 +1,11 @@
 /* balance_tiler.cxx */
 
+/* TODO: new algorithm */
+/*       inner_ring inner_polygon ring polygon */
+/*       ==> all triangles between them */
+/*       ==> max skewness not too big */
+/*           area sigma not too big */
+
 #include "balance_tiler.h"
 
 namespace TriangulationPlanarEmbedding {
@@ -118,8 +124,9 @@ PFF BalanceTiler::getRotationQuantity(const MergedRingInRing& inner_ring, const 
     const auto& ls_point = (point - parent_point).lengthSquare();
     const auto& ls_next = (next_point - parent_point).lengthSquare();
     SHOW_VAR_ENDL(std::cout, ls_point, ls_next)
-    res_diff += 100.0f * fabs(ls_point - ls_next);
-    res_sum += 200.0f * std::max(ls_point, ls_next);
+    const F lambda = 100.0f;
+    res_diff += lambda * fabs(ls_point - ls_next);
+    res_sum += lambda * 2.0f * std::max(ls_point, ls_next);
 
     SHOW_VAR_ENDL(std::cout, res_diff, res_sum)
   }/* for i */
