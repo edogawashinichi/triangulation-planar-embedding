@@ -21,6 +21,12 @@ extern bool G_DEBUG_MODE;
 extern bool G_VERBOSE_MODE;
 
 /* math */
+
 const double PI = 3.1415926;
+const unsigned int G_N = 1000000; /* to transform from float to int */
+
+/* random */
+
+extern unsigned int G_HISTORY_SEED;
 
 }/* namespace TriangulationPlanarEmbedding */
