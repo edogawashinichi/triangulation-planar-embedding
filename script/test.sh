@@ -46,7 +46,7 @@ if [ ${test_num} -eq ${obj_num} ]; then
       if [ $2 == n ] && [ $3 -eq ${file_index} ]; then
         echo -e "test file index ${prefix}${front_green}m${file_index}${reset}"
       else
-        echo -e "${prefix}${front_red}m  SKIP${reset} ${file} != ${file_index}"
+        echo -e "${prefix}${front_red}m  SKIP${reset} ${file} ${file_index} != $3"
         continue
       fi
     elif [ $# -gt 1 ]; then

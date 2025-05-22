@@ -93,6 +93,10 @@ do {                                                                  \
 SHOW_VAR(cout, __VA_ARGS__)      \
 cout << ENDL;
 
+#define SHOW_VAR_SPACE(cout, ...) \
+SHOW_VAR(cout, __VA_ARGS__)       \
+cout << SPACE(1);
+
 /* show complicated structure */
 
 #define SHOW_VI(cout, vi)    \
@@ -107,6 +111,10 @@ if (vi.empty()) {            \
 #define SHOW_VI_ENDL(cout, vi) \
 SHOW_VI(cout, vi)              \
 cout << ENDL;
+
+#define SHOW_VI_NAME_ENDL(cout, vi) \
+cout << SS(vi) << SPACE(1);             \
+SHOW_VI_ENDL(cout, vi)
 
 #define SHOW_PAIR_WITH_PARENTH(cout, p) \
 cout << "(" << p.first << "," << p.second << ")";

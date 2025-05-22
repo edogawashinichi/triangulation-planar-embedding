@@ -60,11 +60,20 @@ int main(int argc, char* argv[]) { \
 #define _VERBOSE \
 G_VERBOSE_MODE
 
+#define VERBOSE_COUT \
+if (_VERBOSE) std::cout
+
 #define _DEBUG \
 _VERBOSE || G_DEBUG_MODE
 
+#define DEBUG_COUT \
+if (_DEBUG) std::cout
+
 #define _INFO \
 _DEBUG || G_INFO_MODE
+
+#define INFO_COUT \
+if (_INFO) std::cout
 
 #define SHOW_OBJ(MODE, obj) \
 if (_##MODE) { \
