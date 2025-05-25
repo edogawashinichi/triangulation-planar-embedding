@@ -67,10 +67,29 @@ TEST_START(4)
   INFO_OBJ(merged_next_ring)
 TEST_END(4)
 
+TEST_START(5)
+  const size_t n = 6;
+  const VVI edges = {
+    {0, 1}, {0, 2},
+    {1, 3}, {1, 4},
+    {2, 4}, {2, 5},
+    {3, 4}, {3, 5},
+    {4, 5}
+  };
+  const Graph graph(n, edges);
+  DEBUG_OBJ(graph)
+  const size_t subgraph_size = 3;
+  VI vertices;
+  res = GRAPH_SEARCHER.findCompleteSubgraph(graph, subgraph_size, &vertices);
+  INFO_VI(vertices)
+  res = res && (subgraph_size == vertices.size());
+TEST_END(5)
+
 MAIN_START
   TEST(0)
   TEST(1)
   TEST(2)
   TEST(3)
   TEST(4)
+  TEST(5)
 MAIN_END

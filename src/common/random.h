@@ -21,4 +21,10 @@ size_t randomChoose(const VF& p);
 /* randomly choose an element with equivalent probability from {0, 1, ..., n-1} */
 size_t randomChoose(const size_t n);
 
+/* randomly shuffle {0, 1, ..., n-1} */
+VI randomOrder(const size_t n);
+
+/* randomly shuffle vector */
+void shuffle(VI* vector);
+
 }/// namespace TriangulationPlanarEmbedding

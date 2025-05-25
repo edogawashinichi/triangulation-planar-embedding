@@ -19,7 +19,7 @@
 #pragma once
 
 #include "../graph.h"
-#include "../topology/complete_three.h"
+#include "../topology/complete_result.h"
 #include "../common/notation.h"
 #include "../solver/ring_in_ring.h"
 #include "../solver/merged_ring_in_ring.h"
@@ -28,6 +28,11 @@ namespace TriangulationPlanarEmbedding {
 
 class GraphSearcher {
 SINGLETON_ASSERTION(GraphSearcher)
+public:
+  bool findCompleteSubgraph(const Graph& graph, const size_t subgraph_size, VI* vertices);
+  bool findCompleteSubgraph(const Graph& graph, const size_t subgraph_size, const size_t vertex, VI* vertices);
+protected:
+  bool dfsCompleteSubgraph(const Graph& graph, const size_t subgraph_size, const VI& neighbors, const size_t index, VI* neighbor_stack);
 public:
   bool findOutermostRing(const Graph& graph, RingInRing* ring, MergedRingInRing* merged_ring);
   bool findSubouterRing(const Graph& graph, const RingInRing& outermost_ring, RingInRing* subouter_ring, MergedRingInRing* merged_subouter_ring);

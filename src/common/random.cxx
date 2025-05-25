@@ -42,6 +42,15 @@ VI randomChoose(const size_t n, const size_t k) {
   return VI(all.begin(), all.begin() + k);
 }/* randomChoose */
 
+void shuffle(VI* vector) {
+  RANDOM_ENVIRONMENT(random_engine)
+  std::shuffle(vector->begin(), vector->end(), random_engine);
+}/* shuffle */
+
+VI randomOrder(const size_t n) {
+  return randomChoose(n, n);
+}/* randomOrder */
+
 size_t randomChoose(const VF& probability) {
   VERBOSE_VI(probability)
   const auto& p = probability;

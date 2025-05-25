@@ -4,10 +4,83 @@
 #include "../common/math.h"
 #include "../subgraph/vertex_inducer.h"
 #include "../solver/ring_in_ring_trimmer.h"
+#include "../common/random.h"
 
 /* TODO: debug DEBUG_VAR_ENDL */
 
 namespace TriangulationPlanarEmbedding {
+
+bool GraphSearcher::findCompleteSubgraph(const Graph& graph, const size_t subgraph_size, VI* vertices) {
+  /* TODO: test findCompleteSubgraph */
+  /* whether graph contains a complete subgraph of size subgraph_size */
+  DEBUG_START(GraphSearcher::findCompleteSubgraph)
+  const size_t graph_size = graph.size();
+  SHOW_VAR_ENDL(std::cout, graph_size, subgraph_size)
+  bool res = false;
+  vertices->clear();
+  if (subgraph_size <= graph_size) {
+    const VI& vertex_order = randomOrder(graph_size);
+    for (const auto& vertex : vertex_order) {
+      res = this->findCompleteSubgraph(graph, subgraph_size, vertex, vertices);
+      if (res) break;
+    }/* for */
+  }/* if */
+  DEBUG_END(GraphSearcher::findCompleteSubgraph)
+  return res;
+}/* GraphSearcher::findCompleteSubgraph */
+bool GraphSearcher::findCompleteSubgraph(const Graph& graph, const size_t subgraph_size, const size_t vertex, VI* vertices) {
+  /* whether closed-neighborhood N[vertex] contains a complete subgraph of size subgraph_size */
+  DEBUG_START(GraphSearcher::findCompleteSubgraph)
+  VI neighbors(graph.neighbors(vertex));
+  const size_t neighborhood_size = neighbors.size() + 1;
+  SHOW_VAR_ENDL(std::cout, subgraph_size, vertex, neighborhood_size)
+  bool res = (neighborhood_size >= subgraph_size);
+  vertices->clear();
+  if (res) {
+    shuffle(&neighbors);
+    VI neighbor_stack;
+    res = this->dfsCompleteSubgraph(graph, subgraph_size, neighbors, 0, &neighbor_stack);
+    if (res) {
+      vertices->emplace_back(vertex);
+      vertices->insert(vertices->end(), neighbor_stack.begin(), neighbor_stack.end());
+    }/* res */
+  }/* if */
+  DEBUG_END(GraphSearcher::findCompleteSubgraph)
+  return res;
+}/* GraphSearcher::findCompleteSubgraph */
+bool GraphSearcher::dfsCompleteSubgraph(const Graph& graph, const size_t subgraph_size, const VI& neighbors, const size_t index, VI* neighbor_stack) {
+  DEBUG_START(GraphSearcher::dfsCompleteSubgraph)
+  const size_t neighbors_size = neighbors.size();
+  const size_t stack_size = neighbor_stack->size();
+  SHOW_VAR_ENDL(std::cout, neighbors_size, index, stack_size)
+  bool res = false;
+  if (stack_size + 1 >= subgraph_size) {
+    res = true;
+  } else if (index >= neighbors_size) {
+    res = false;
+  } else {
+    const size_t vertex = neighbors[index];
+    SHOW_VAR_ENDL(std::cout, vertex)
+    /* 0. with index */
+    bool all_connected = true;
+    for (const auto& v : *neighbor_stack) {
+      if (graph.containEdge(vertex, v)) continue;
+      all_connected = false;
+      break;
+    }/* for */
+    if (all_connected) {
+      neighbor_stack->emplace_back(vertex);
+      res = this->dfsCompleteSubgraph(graph, subgraph_size, neighbors, index + 1, neighbor_stack);
+      if (!res) neighbor_stack->pop_back();
+    }/* if */
+    /* 1. without index */
+    if (!res) {
+      res = this->dfsCompleteSubgraph(graph, subgraph_size, neighbors, index + 1, neighbor_stack);
+    }/* if */
+  }/* if */
+  DEBUG_END(GraphSearcher::dfsCompleteSubgraph)
+  return res;
+}/* GraphSearcher::dfsCompleteSubgraph */
 
 bool GraphSearcher::findOutermostRing(const Graph& graph, RingInRing* ring, MergedRingInRing* merged_ring) {
   /* ring must be 3-ring */

@@ -50,7 +50,7 @@ int main(int argc, char* argv[]) { \
 
 #define MAIN_END                                 \
   if (argc > 1) {                                \
-    std::cout << S_GREEN("return from main!");   \
+    std::cout << S_GREEN("return from main!\n");   \
   }                                              \
   return 0;                                      \
 }

@@ -18,6 +18,12 @@ namespace TriangulationPlanarEmbedding {
 class Graph {
 CLASS_5_FUNCTIONS(Graph, n_, neighbors_)
 public:
+  inline Graph(const size_t n, const VVI& edges) {
+    n_ = n;
+    for (const auto& edge : edges) {
+      this->addSymmetry(edge[0], edge[1]);
+    }/* for */
+  }/* constructor */
   inline virtual void show(std::ostream& cout) const {
     TEST_RETURN
     SHOW_VAR_ENDL(cout, n_)
@@ -90,6 +96,9 @@ public:
     /* assuming valid v */
     return neighbors_.at(v);
   }/* neighbors */
+  inline size_t size() const {
+    return n_;
+  }/* size */
 protected:
   I n_;/* number of vertices */
   MIVI neighbors_;
