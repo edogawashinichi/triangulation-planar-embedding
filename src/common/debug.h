@@ -84,11 +84,26 @@ if (_##MODE) { \
 #define INFO_OBJ(obj) \
 SHOW_OBJ(INFO, obj)
 
+#define INFO_VAR(...)                   \
+if (_INFO) {                            \
+  SHOW_VAR_ENDL(std::cout, __VA_ARGS__) \
+}
+
 #define DEBUG_OBJ(obj) \
 SHOW_OBJ(DEBUG, obj)
 
+#define DEBUG_VAR(...)                  \
+if (_DEBUG) {                           \
+  SHOW_VAR_ENDL(std::cout, __VA_ARGS__) \
+}
+
 #define VERBOSE_OBJ(obj) \
 SHOW_OBJ(VERBOSE, obj)
+
+#define VERBOSE_VAR(...)                \
+if (_VERBOSE) {                         \
+  SHOW_VAR_ENDL(std::cout, __VA_ARGS__) \
+}
 
 /* info debug verbose * start end */
 
