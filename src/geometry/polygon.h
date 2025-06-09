@@ -15,6 +15,17 @@ protected:
   Point B_;
   Point C_;
 public:
+  inline void clear() {
+    A_ = Point(0.0f, 0.0f);
+    B_ = Point(0.0f, 0.0f);
+    C_ = Point(0.0f, 0.0f);
+  }/* clear */
+  inline void show(std::ostream& cout) const {
+    TEST_RETURN
+    A_.show(cout);
+    B_.show(cout);
+    C_.show(cout);
+  }/* show */
   inline Triangle(const Point& A, const Point& B, const Point& C) {
     A_ = A;
     B_ = B;

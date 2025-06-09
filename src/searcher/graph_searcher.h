@@ -38,6 +38,10 @@ public:
   bool findSubouterRing(const Graph& graph, const RingInRing& outermost_ring, RingInRing* subouter_ring, MergedRingInRing* merged_subouter_ring);
   void findInnerRing(const Graph& graph, const RingInRing& outer_ring, const RingInRing& ring, RingInRing* inner_ring, MergedRingInRing* merged_inner_ring);
 public:
+  bool findPathOfSize(const Graph& graph, const size_t size, const size_t start_vertex, const size_t end_vertex, VI* path);
+protected:
+  bool findPathOfSizeHelper(const Graph& graph, const size_t size, const size_t cur_vertex, const size_t end_vertex, VI* visited, VI* path);
+public:
   bool findRingPath(const Graph& graph, const VI& vertices, const I start_vertex, const I end_vertex, VI* path);
 protected:
   bool findRingPathHelper(const Graph& graph, const VI& vertices, const I cur_vertex, const I end_vertex, VI* visited, VI* path);

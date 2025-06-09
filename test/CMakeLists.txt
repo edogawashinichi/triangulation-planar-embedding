@@ -11,3 +11,5 @@ add_subdirectory(icosahedron)
 add_subdirectory(solver)
 add_subdirectory(random)
 add_subdirectory(tree)
+add_subdirectory(walk_searcher)
+

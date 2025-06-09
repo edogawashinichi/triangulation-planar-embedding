@@ -11,11 +11,10 @@
 namespace TriangulationPlanarEmbedding {
 
 bool GraphSearcher::findCompleteSubgraph(const Graph& graph, const size_t subgraph_size, VI* vertices) {
-  /* TODO: test findCompleteSubgraph */
   /* whether graph contains a complete subgraph of size subgraph_size */
   DEBUG_START(GraphSearcher::findCompleteSubgraph)
   const size_t graph_size = graph.size();
-  SHOW_VAR_ENDL(std::cout, graph_size, subgraph_size)
+  DEBUG_VAR(graph_size, subgraph_size)
   bool res = false;
   vertices->clear();
   if (subgraph_size <= graph_size) {
@@ -33,7 +32,7 @@ bool GraphSearcher::findCompleteSubgraph(const Graph& graph, const size_t subgra
   DEBUG_START(GraphSearcher::findCompleteSubgraph)
   VI neighbors(graph.neighbors(vertex));
   const size_t neighborhood_size = neighbors.size() + 1;
-  SHOW_VAR_ENDL(std::cout, subgraph_size, vertex, neighborhood_size)
+  DEBUG_VAR(subgraph_size, vertex, neighborhood_size)
   bool res = (neighborhood_size >= subgraph_size);
   vertices->clear();
   if (res) {
@@ -52,7 +51,7 @@ bool GraphSearcher::dfsCompleteSubgraph(const Graph& graph, const size_t subgrap
   DEBUG_START(GraphSearcher::dfsCompleteSubgraph)
   const size_t neighbors_size = neighbors.size();
   const size_t stack_size = neighbor_stack->size();
-  SHOW_VAR_ENDL(std::cout, neighbors_size, index, stack_size)
+  DEBUG_VAR(neighbors_size, index, stack_size)
   bool res = false;
   if (stack_size + 1 >= subgraph_size) {
     res = true;
@@ -60,8 +59,9 @@ bool GraphSearcher::dfsCompleteSubgraph(const Graph& graph, const size_t subgrap
     res = false;
   } else {
     const size_t vertex = neighbors[index];
-    SHOW_VAR_ENDL(std::cout, vertex)
-    /* 0. with index */
+    DEBUG_VAR(vertex)
+    /* 0. with vertex */
+    /* TODO: GraphJudger.isFullConnected(graph, U, V) */
     bool all_connected = true;
     for (const auto& v : *neighbor_stack) {
       if (graph.containEdge(vertex, v)) continue;
@@ -73,7 +73,7 @@ bool GraphSearcher::dfsCompleteSubgraph(const Graph& graph, const size_t subgrap
       res = this->dfsCompleteSubgraph(graph, subgraph_size, neighbors, index + 1, neighbor_stack);
       if (!res) neighbor_stack->pop_back();
     }/* if */
-    /* 1. without index */
+    /* 1. without vertex */
     if (!res) {
       res = this->dfsCompleteSubgraph(graph, subgraph_size, neighbors, index + 1, neighbor_stack);
     }/* if */
@@ -227,6 +227,18 @@ void GraphSearcher::findInnerRing(const Graph& graph, const RingInRing& outer_ri
   DEBUG_END(GraphSearcher::findInnerRing)
 }/* GraphSearcher::findInnerRing */
 
+bool GraphSearcher::findPathOfSize(const Graph& graph, const size_t size, const I start_vertex, const I end_vertex, VI* path) {
+  /* TODO: to analyze if length is necessary */
+  /* may be not if 5-star-connected */
+  DEBUG_START(findPathOfSize)
+  VI visited(graph.n(), 0);
+  visited[start_vertex] = 1;
+  path->emplace_back(start_vertex);
+  bool res = this->findPathOfSizeHelper(graph, size, start_vertex, end_vertex, &visited, path);
+  DEBUG_END(findPathOfSize)
+  return res;
+}/* GraphSearcher::findPathOfSize */
+
 bool GraphSearcher::findRingPath(const Graph& graph, const VI& vertices, const I start_vertex, const I end_vertex, VI* path) {
   DEBUG_START(findRingPath)
   VI visited(graph.n(), 0);
@@ -237,11 +249,36 @@ bool GraphSearcher::findRingPath(const Graph& graph, const VI& vertices, const I
   return res;
 }/* GraphSearcher::findRingPath */
 
+bool GraphSearcher::findPathOfSizeHelper(const Graph& graph, const size_t size, const I cur_vertex, const I end_vertex, VI* visited, VI* path) {
+  DEBUG_START(findPathOfSizeHelper)
+  DEBUG_VAR(cur_vertex, end_vertex)
+  if (cur_vertex == end_vertex) {
+    DEBUG_VAR(cur_vertex, end_vertex)
+    DEBUG_END(findPathOfSizeHelper)
+    return path->size() == size;  
+  }/* if */
+  bool res = false;
+  for (const I& v : graph.neighbors(cur_vertex)) {
+    if ((*visited)[v]) continue;
+    (*visited)[v] = 1;
+    path->emplace_back(v);
+    if (this->findPathOfSizeHelper(graph, size, v, end_vertex, visited, path)) {
+      res = true;
+      break;
+    }/* if */
+    (*visited)[v] = 0;
+    path->pop_back();
+  }/* for */
+  DEBUG_VAR(cur_vertex, end_vertex)
+  DEBUG_END(findPathOfSizeHelper)
+  return res;
+}/* GraphSearcher::findPathOfSizeHelper */
+
 bool GraphSearcher::findRingPathHelper(const Graph& graph, const VI& vertices, const I cur_vertex, const I end_vertex, VI* visited, VI* path) {
   DEBUG_START(findRingPathHelper)
-  /*SHOW_VAR_ENDL(cur_vertex, end_vertex)*/
+  DEBUG_VAR(cur_vertex, end_vertex)
   if (cur_vertex == end_vertex) {
-    /*SHOW_VAR_ENDL(cur_vertex, end_vertex)*/
+    DEBUG_VAR(cur_vertex, end_vertex)
     DEBUG_END(findRingPathHelper)
     return path->size() == vertices.size();  
   }/* if */
@@ -257,7 +294,7 @@ bool GraphSearcher::findRingPathHelper(const Graph& graph, const VI& vertices, c
     (*visited)[v] = 0;
     path->pop_back();
   }/* for */
-  /*SHOW_VAR_ENDL(cur_vertex, end_vertex)*/
+  DEBUG_VAR(cur_vertex, end_vertex)
   DEBUG_END(findRingPathHelper)
   return res;
 }/* GraphSearcher::findRingPathHelper */
@@ -316,7 +353,7 @@ bool GraphSearcher::findInnerRingHelper(const Graph& graph, const CompleteThreeR
   for (int i = 0; i < n; ++i) {
     const I a = guards[i % n];
     const I b = guards[(i + 1) % n];
-    /*SHOW_VAR_ENDL(a, b)*/
+    DEBUG_VAR(a, b)
     VI common_neighbors;
     cap<I>(graph.neighbors(a), graph.neighbors(b), &common_neighbors);
     VI common_on_ring;

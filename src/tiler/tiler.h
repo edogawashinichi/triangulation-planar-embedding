@@ -1,5 +1,7 @@
 /* tiler.h */
 
+/* TODO: move folder tiler into solver */
+
 #pragma once
 
 #include "../graph.h"

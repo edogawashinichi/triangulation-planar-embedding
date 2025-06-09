@@ -2,8 +2,11 @@
 This project is aimed to draw a triangulation on a plane.\
 The current tools, such as networkx, perform not well,
 so this is why this project emerges.\
+## Graph Theory Related
 A triangulation is a planar graph, each face of which is a triangle, or equivalently it satisfies $m=3n-6$ where $m$ / $n$ is the number of edges / vertices of the graph.\
-For the purpose of studying the four color theorem, we mainly consider triangulations that are 5-star-connected, which means they are 5-connected and any 5-ring must be a 5-wheel.
+A ring in a planar graph is a closed walk, both of the interior and exterior of which contain at least 1 vertices.
+A wheel is a ring with either the interior or the exterior contains exactly 1 vertex.
+For the purpose of studying the Four Color Theorem, we mainly consider triangulations that are 5-star-connected, which means they are 5-connected and any 5-ring must be a 5-wheel.
 # Input
 Currently users guarantee the input is a 5-star-connected triangulation,
 which will be verified by the program in the future.\

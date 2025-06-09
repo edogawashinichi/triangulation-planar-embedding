@@ -64,8 +64,8 @@ F BalanceTiler::findBalancedRotation(const MergedRingInRing& inner_ring, const M
   F alpha = 0.0f;
   F best_sum = 1e10f;
   F best_diff = 1e10f;
-  const F THETA_START = -2 *PI;
-  const F THETA_END = 2 * PI;
+  const F THETA_START = -PI;
+  const F THETA_END = PI;
   const F DELTA = 0.02f;/* 0.02 radians == 1.146 degrees */
   const F DELTA_SUM = 0.01f;
   const F DELTA_DIFF = 0.01f;

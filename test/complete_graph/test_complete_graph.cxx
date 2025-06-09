@@ -1,7 +1,7 @@
 /* test_complete_graph.cxx */
 
 #include "../../src/topology/complete_graph.h"
-#include "../../src/topology/complete_three.h"
+#include "../../src/topology/complete_result.h"
 
 using namespace TriangulationPlanarEmbedding;
 

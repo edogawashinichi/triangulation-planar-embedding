@@ -59,6 +59,7 @@ TEST_START(4)
   test_a_triangulation_file("icosahedron");
   test_a_triangulation_file("icosa_3_6_6");
   test_a_triangulation_file("icosa_3_7_4");
+  /*test_a_triangulation_file("icosa_3_6_5_1");  bug */
 TEST_END(4)
 
 MAIN_START
