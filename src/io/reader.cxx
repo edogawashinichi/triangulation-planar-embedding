@@ -6,19 +6,23 @@
 #include <fstream>
 #include <jsoncpp/json/json.h>
 
-#define READ_JSON_START(file) \
+#define READ_JSON_START(file)                 \
+DEBUG_START(READ_JSON file)                   \
 std::ifstream infile(file, std::ios::binary); \
-if (!infile.is_open()) {            \
-  return false;                     \
-}                                   \
-Json::Reader reader;                \
-Json::Value  root;                  \
-if (!reader.parse(infile, root)) {  \
-  return false;                     \
+if (!infile.is_open()) {                      \
+  DEBUG_END(READ_JSON file)                   \
+  return false;                               \
+}                                             \
+Json::Reader reader;                          \
+Json::Value  root;                            \
+if (!reader.parse(infile, root)) {            \
+  DEBUG_END(READ_JSON file)                   \
+  return false;                               \
 }
 
 #define READ_JSON_END               \
 infile.close();                     \
+DEBUG_END(READ_JSON)                \
 return true;
 
 namespace TriangulationPlanarEmbedding {
@@ -46,7 +50,19 @@ bool Reader::readGraph(const S& file, Mapper* mapper, Graph* graph) {
     //SHOW_ENDL(std::cout, typeid(*iter).name())
     if (typeid(*iter) != typeid(S)) return false;
     if (root[*iter].type() != Json::arrayValue) return false;
-    mapper->add(*iter, code);
+    const std::string& str = *iter;
+    if (str.length() == 1) {
+      const char& ch = str[0];
+      if (isdigit(ch)) {
+        mapper->add(str, static_cast<size_t>(ch - '0'));
+      } else if (islower(ch)) {
+        mapper->add(str, static_cast<size_t>(ch - 'a' + 10));
+      } else {
+        mapper->add(str, static_cast<size_t>(ch - 'A' + 36));
+      }/* else */
+    } else {
+      mapper->add(str, code);
+    }/* else */
     const I size = root[*iter].size();
     for (I i = 0; i < size; ++i) {
       const int j = static_cast<int>(i);
