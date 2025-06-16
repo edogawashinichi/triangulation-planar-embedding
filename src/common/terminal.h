@@ -47,13 +47,21 @@ namespace TriangulationPlanarEmbedding {
 
 #define SEPAR(k) S(k, '-')
 
+#define SEPAR_WAVE(k) S(k, '~')
+
 /* test */
 
 #define S_TEST_SEPAR(separ_half_len, test_index) \
 S_YELLOW(SEPAR(separ_half_len)) + S_BLUE(SS(test_##test_index)) + S_YELLOW(SEPAR(separ_half_len))
 
+#define S_TEST_SEPAR_WAVE(separ_half_len, test_index) \
+S_YELLOW(SEPAR_WAVE(separ_half_len)) + S_BLUE(SS(test_##test_index)) + S_YELLOW(SEPAR_WAVE(separ_half_len))
+
 #define SHOW_SEPAR_ENDL_WITH_TEST(cout, separ_half_len, test_index) \
-cout << S_TEST_SEPAR(separ_half_len, test_index) << ENDL;                   \
+cout << S_TEST_SEPAR(separ_half_len, test_index) << ENDL;
+
+#define SHOW_SEPAR_WAVE_ENDL_WITH_TEST(cout, separ_half_len, test_index) \
+cout << S_TEST_SEPAR_WAVE(separ_half_len, test_index) << ENDL;
 
 #define S_TEST_PASS(i) \
 S_BLUE(SS(test_##i)) + " " + S_GREEN("PASSED!")
@@ -119,6 +127,10 @@ SHOW_VI_ENDL(cout, vi)
 #define SHOW_PAIR_WITH_PARENTH(cout, p) \
 cout << "(" << p.first << "," << p.second << ")";
 
+#define SHOW_PAIR_WITH_PARENTH_SPACE(cout, p) \
+SHOW_PAIR_WITH_PARENTH(cout, p)               \
+cout << SPACE(1);
+
 #define SHOW_PAIR_WITH_PARENTH_ENDL(cout, p) \
 SHOW_PAIR_WITH_PARENTH(cout, p)              \
 cout << ENDL;
@@ -182,7 +194,7 @@ void test_##i() {                             \
 
 #define TEST_END(i)                           \
   SHOW_TEST_RES(std::cout, i)                 \
-  SHOW_SEPAR_ENDL_WITH_TEST(std::cout, 30, i) \
+  SHOW_SEPAR_WAVE_ENDL_WITH_TEST(std::cout, 30, i) \
 }
 
 }/* namespace TriangulationPlanarEmbedding */
