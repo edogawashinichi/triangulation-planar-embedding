@@ -96,6 +96,9 @@ public:
     /* assuming valid v */
     return neighbors_.at(v);
   }/* neighbors */
+  inline const MIVI& constNeighbors() const {
+    return neighbors_;
+  }/* constNeighbors */
   inline size_t size() const {
     return n_;
   }/* size */

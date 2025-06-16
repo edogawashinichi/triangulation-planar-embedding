@@ -145,6 +145,19 @@ for (const auto& kv : mivi) {       \
   cout << ENDL;                     \
 }
 
+#define SHOW_MSVS_ENDL(cout, mivi, mis)                                \
+cout << SS(mivi) << HINT << ENDL;                                      \
+for (const auto& kv : mivi) {                                          \
+  const size_t key = kv.first;                                         \
+  const std::string skey = mis.count(key) ? mis.at(key) : "?";         \
+  cout << skey << HINT;                                                \
+  for (const auto& value : kv.second) {                                \
+    const std::string svalue = mis.count(value) ? mis.at(value) : "?"; \
+    cout << svalue << SPACE(1);                                        \
+  }                                                                    \
+  cout << ENDL;                                                        \
+}
+
 #define SHOW_MSI_OR_MIS_ENDL(cout, msome)          \
 cout << SS(msome) << HINT << ENDL;                 \
 for (const auto& kv : msome) {                     \

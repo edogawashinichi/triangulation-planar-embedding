@@ -30,6 +30,9 @@ public:
   inline S getString(const I code) const {
     return code2string_.count(code) ? code2string_.at(code) : S();
   }/* getString */
+  inline const MIS& constCode2String() const {
+    return code2string_;
+  }/* constCode2String */
   inline void add(const S& string, const I code) {
     string2code_[string] = code;
     code2string_[code] = string;
