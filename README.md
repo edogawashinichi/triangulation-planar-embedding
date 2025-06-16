@@ -1,7 +1,7 @@
 # Introduction
 This project is aimed to draw a triangulation on a plane.\
 The current tools, such as networkx, perform not well,
-so this is why this project emerges.\
+so this is why this project emerges.
 ## Graph Theory Related
 A triangulation is a planar graph, each face of which is a triangle, or equivalently it satisfies $m=3n-6$ where $m$ / $n$ is the number of edges / vertices of the graph.\
 A ring in a planar graph is a closed walk, both of the interior and exterior of which contain at least 1 vertices.
